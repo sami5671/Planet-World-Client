@@ -2,7 +2,7 @@ import { GiFruitTree } from "react-icons/gi";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-[#f4f3f1] fixed z-10 ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -53,7 +53,7 @@ const Navbar = () => {
         <div className="form-control">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search tree name"
             className="input input-bordered w-24 md:w-auto"
           />
         </div>
