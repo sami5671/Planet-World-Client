@@ -1,3 +1,4 @@
+import { FaCartShopping } from "react-icons/fa6";
 import { GiFruitTree } from "react-icons/gi";
 
 const Navbar = () => {
@@ -45,9 +46,14 @@ const Navbar = () => {
         <span className="hidden lg:block">
           <GiFruitTree className="text-2xl text-lime-600" />
         </span>
-        <a className="hidden lg:block bg-gradient-to-br from-lime-400 to-green-800 text-transparent bg-clip-text font-Rancho font-bold text-2xl">
+        <a className="hidden lg:block bg-gradient-to-br from-lime-400 to-green-700 text-transparent bg-clip-text font-Rancho font-bold text-2xl">
           Planet World
         </a>
+        <div>
+          <span>
+            <FaCartShopping className="text-3xl text-lime-500 mr-2" />
+          </span>
+        </div>
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">

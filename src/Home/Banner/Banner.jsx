@@ -18,7 +18,7 @@ const Banner = () => {
 
         <div className="absolute flex items-start justify-center lg:w-1/2 mt-12">
           <div className="text-left px-2 lg:ml-6">
-            <h2 className="text-2xl lg:text-6xl uppercase mt-2 mb-4 text-lime-800">
+            <h2 className="font-Rancho text-2xl lg:text-6xl uppercase mt-2 mb-4 text-lime-700">
               Organize Your Home & Office with live tree
             </h2>
             <p className="text-[12px] lg:text-[18px] text-white">
@@ -28,7 +28,7 @@ const Banner = () => {
               Live Tree elevates your space, creating a harmonious environment
               that enhances productivity and tranquility.
             </p>
-            <button className="px-8 py-1 mt-3 font-Rancho text-xl text-white rounded-br-full bg-lime-400 hover:bg-white hover:text-black hover:border-2 hover:border-black">
+            <button className="px-8 py-1 mt-3 font-Rancho text-xl text-white rounded-br-full bg-lime-600 hover:bg-white hover:text-black hover:border-2 hover:border-black">
               Shop Now
             </button>
           </div>
