@@ -47,7 +47,7 @@ const Navbar = () => {
           <GiFruitTree className="text-2xl text-lime-600" />
         </span>
         <a className="hidden lg:block bg-gradient-to-br from-lime-400 to-green-700 text-transparent bg-clip-text font-Rancho font-bold text-2xl">
-          Planet World
+          Plant World
         </a>
         <div>
           <span>

@@ -18,7 +18,7 @@ const Banner = () => {
 
         <div className="absolute flex items-start justify-center lg:w-1/2 mt-12">
           <div className="text-left px-2 lg:ml-6">
-            <h2 className="font-Rancho text-2xl lg:text-6xl uppercase mt-2 mb-4 text-lime-700">
+            <h2 className="font-Rancho bg-gradient-to-tr from-lime-400 to-green-700 text-transparent bg-clip-text text-2xl lg:text-6xl uppercase mt-2 mb-4 ">
               Organize Your Home & Office with live tree
             </h2>
             <p className="text-[12px] lg:text-[18px] text-white">
