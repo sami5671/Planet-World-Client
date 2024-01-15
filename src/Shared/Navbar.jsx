@@ -1,7 +1,21 @@
 import { FaCartShopping } from "react-icons/fa6";
 import { GiFruitTree } from "react-icons/gi";
+import UseAuth from "./../Hooks/UseAuth";
+import { Link } from "react-router-dom";
+import UseCart from "../Hooks/UseCart";
 
 const Navbar = () => {
+  // =================================================================
+
+  const { user, logOut } = UseAuth();
+  const [cart] = UseCart();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+  // =================================================================
   return (
     <div className="navbar bg-[#f4f3f1] fixed z-10 ">
       <div className="navbar-start">
@@ -35,6 +49,15 @@ const Navbar = () => {
             <li>
               <a>About Us</a>
             </li>
+            {user ? (
+              " "
+            ) : (
+              <Link to="/login">
+                <li>
+                  <a>Login</a>
+                </li>
+              </Link>
+            )}
           </ul>
         </div>
         <span className="block lg:hidden">
@@ -50,9 +73,14 @@ const Navbar = () => {
           Plant World
         </a>
         <div>
-          <span>
-            <FaCartShopping className="text-3xl text-lime-500 mr-2" />
-          </span>
+          <Link to="/dashboard/UserCart">
+            <span>
+              <FaCartShopping className="text-2xl mr-6 lg:text-3xl text-lime-500 lg:mr-2" />
+              <span className="badge absolute -mt-10 ml-2 lg:ml-5 text-red-600 font-bold">
+                {cart.length}
+              </span>
+            </span>
+          </Link>
         </div>
       </div>
       <div className="flex-none gap-2">
@@ -64,34 +92,49 @@ const Navbar = () => {
           />
         </div>
         <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
+          {user ? (
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img alt="photo" src={user?.photoURL} />
+              </div>
             </div>
-          </div>
+          ) : (
+            " "
+          )}
           <ul
             tabIndex={0}
             className="font-Rancho mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box border-2 border-lime-300 w-52"
           >
             <li>
               <a className="justify-between">
-                Profile
+                {user?.displayName}
                 <span className="badge">New</span>
               </a>
             </li>
             <li>
-              <a>Settings</a>
+              <Link to="/dashboard">Dashboard </Link>
             </li>
             <li>
-              <a>Logout</a>
+              <a>Settings</a>
             </li>
+
+            {user ? (
+              <li>
+                <button onClick={handleLogOut}>Logout</button>
+              </li>
+            ) : (
+              <>
+                <Link to="/login">
+                  <li>
+                    <button>Login</button>
+                  </li>
+                </Link>
+              </>
+            )}
           </ul>
         </div>
       </div>

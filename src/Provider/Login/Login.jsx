@@ -1,9 +1,16 @@
-import { FaFacebookF, FaGithub, FaGooglePlusG } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
 import UseAuth from "./../../Hooks/UseAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import GoogleLogin from "../../Components/GoogleLogin";
+import GithubLogin from "../../Components/GithubLogin";
 
 const Login = () => {
   // ----------------------------------------------------------------
+  const navigate = useNavigate();
+  const location = useLocation();
   const { signIn } = UseAuth();
+
+  const form = location.state?.form?.pathname || "/";
   // ----------------------------------------------------------------
   const handleLogin = (event) => {
     event.preventDefault();
@@ -14,6 +21,7 @@ const Login = () => {
 
     signIn(email, password).then((result) => {
       const user = result.user;
+      navigate("/", { state: { form: location } });
       console.log(user);
     });
   };
@@ -33,13 +41,8 @@ const Login = () => {
                 </p>
               </div>
               <div className="flex justify-center gap-6 mt-6">
-                <p className="border-2 border-red-400 text-4xl text-green-500 bg-slate-100 shadow-xl p-1">
-                  <FaGooglePlusG />
-                </p>
-
-                <p className="border-2 text-4xl bg-slate-200 shadow-xl p-1">
-                  <FaGithub />
-                </p>
+                <GoogleLogin></GoogleLogin>
+                <GithubLogin></GithubLogin>
                 <p className="border-2 text-4xl text-blue-500 bg-slate-200 shadow-xl p-1">
                   <FaFacebookF />
                 </p>
