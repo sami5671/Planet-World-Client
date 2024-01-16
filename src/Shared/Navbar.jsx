@@ -1,4 +1,5 @@
 import { FaCartShopping } from "react-icons/fa6";
+import { TiWeatherPartlySunny } from "react-icons/ti";
 import { GiFruitTree } from "react-icons/gi";
 import UseAuth from "./../Hooks/UseAuth";
 import { Link, NavLink } from "react-router-dom";
@@ -53,6 +54,16 @@ const Navbar = () => {
             <li>
               <a>About Us</a>
             </li>
+            <Link to="/weather">
+              <li className="hover:underline hover:text-lime-400">
+                <a>
+                  <span className="flex gap-1 items-center">
+                    Weather
+                    <TiWeatherPartlySunny />
+                  </span>
+                </a>
+              </li>
+            </Link>
             {user ? (
               " "
             ) : (
@@ -80,6 +91,16 @@ const Navbar = () => {
             <Link>
               <li className="hover:underline hover:text-lime-400">
                 <a>About Us</a>
+              </li>
+            </Link>
+            <Link to="/weather">
+              <li className="hover:underline hover:text-lime-400">
+                <a>
+                  <span className="flex gap-1 items-center">
+                    Weather
+                    <TiWeatherPartlySunny />
+                  </span>
+                </a>
               </li>
             </Link>
             {user ? (

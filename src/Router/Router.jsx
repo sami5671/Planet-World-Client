@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import UserCart from "./../Pages/User/userCart";
 import ProductDetails from "../Home/Trending Products/ProductDetails";
 import Products from "../Home/All Products/Products";
+import Weather from "../Home/Weather/Weather";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/allProduct",
         element: <Products></Products>,
+      },
+      {
+        path: "/weather",
+        element: <Weather></Weather>,
       },
       {
         path: "/product/:id",
