@@ -6,10 +6,11 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 import { RiReplay10Fill } from "react-icons/ri";
 import UseAuth from "../Hooks/UseAuth";
 import { FaCcAmazonPay } from "react-icons/fa";
-
+import UseCart from "../Hooks/UseCart";
 const Dashboard = () => {
   // ----------------------------------------------------------------
   const { user, logOut } = UseAuth();
+  const [cart] = UseCart();
   const navigate = useNavigate();
   const handleLogOut = () => {
     logOut()
@@ -20,10 +21,10 @@ const Dashboard = () => {
   };
   // ----------------------------------------------------------------
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row bg-slate-900">
       {/* dashboard side bar */}
-      <div className="w-full lg:64 lg:w-1/5 lg:min-h-screen">
-        <ul className="menu p-4 w-30 lg:w-80 lg:text-[18px] font-Rancho text-lime-700 gap-1 min-h-full bg-lime-50">
+      <div className="w-full lg:64 lg:w-1/5 lg:min-h-screen ">
+        <ul className="menu p-4 w-30 lg:w-80 lg:text-[16px] text-lime-700 gap-1 min-h-full bg-lime-50">
           {/* Sidebar content here */}
           <div className="flex gap-2">
             <div className="btn-circle avatar">
@@ -48,7 +49,7 @@ const Dashboard = () => {
           </li>
           <li>
             <NavLink to="/dashboard/userCart">
-              <FaShoppingCart /> My Cart
+              <FaShoppingCart /> My Cart ({cart.length})
             </NavLink>
           </li>
           <li>
@@ -73,7 +74,7 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/products">
+            <NavLink to="/allProduct">
               <FaTree />
               Products
             </NavLink>

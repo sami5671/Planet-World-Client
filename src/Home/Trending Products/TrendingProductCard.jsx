@@ -14,6 +14,7 @@ const TrendingProductCard = ({ plants }) => {
   const location = useLocation();
   const axiosSecure = useAxiosSecure();
   const [, refetch] = UseCart();
+
   const handleAddToCart = (tree) => {
     if (user && user.email) {
       //   console.log(user.email, tree);
@@ -24,6 +25,7 @@ const TrendingProductCard = ({ plants }) => {
         name,
         newPrice,
         img1,
+        previousPrice,
       };
       axiosSecure.post("/carts", cartItem).then((res) => {
         console.log(res.data);
@@ -65,9 +67,11 @@ const TrendingProductCard = ({ plants }) => {
         transition:Bounce
       />
       <div className="w-[200px] font-Rancho rounded-lg shadow-2xl py-4 px-3 relative">
-        <div className="flex justify-center items-center">
-          <img src={img1} className="w-[150px] h-[150px] rounded-xl" alt="" />
-        </div>
+        <Link to={`/product/${_id}`}>
+          <div className="flex justify-center items-center">
+            <img src={img1} className="w-[150px] h-[150px] rounded-xl" alt="" />
+          </div>
+        </Link>
         <div className="pl-4">
           <Link to={`/product/${_id}`}>
             <h1 className="mt-2 relative hover:text-lime-600">
@@ -81,6 +85,7 @@ const TrendingProductCard = ({ plants }) => {
             <span className="font-bold mr-2 text-2xl">$ {newPrice}</span>
             <del className="">${previousPrice}</del>
           </p>
+
           <button
             onClick={() => handleAddToCart(plants)}
             className="flex items-center gap-2 mt-2 text-white bg-lime-500 transition duration-300 ease-in-out hover:bg-lime-800 w-full px-8 rounded-tl-full rounded-br-full"

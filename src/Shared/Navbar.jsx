@@ -1,7 +1,7 @@
 import { FaCartShopping } from "react-icons/fa6";
 import { GiFruitTree } from "react-icons/gi";
 import UseAuth from "./../Hooks/UseAuth";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import UseCart from "../Hooks/UseCart";
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-[#f4f3f1] fixed z-10 ">
       <div className="navbar-start">
-        <div className="dropdown">
+        <div className="dropdown block lg:hidden">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -40,12 +40,16 @@ const Navbar = () => {
             tabIndex={0}
             className="font-Rancho menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box border-2 border-lime-300 w-52"
           >
-            <li>
-              <a>Homepage</a>
-            </li>
-            <li>
-              <a>Product</a>
-            </li>
+            <Link to="/">
+              <li>
+                <a>Homepage</a>
+              </li>
+            </Link>
+            <Link to="/allProduct">
+              <li>
+                <a>Product</a>
+              </li>
+            </Link>
             <li>
               <a>About Us</a>
             </li>
@@ -60,6 +64,36 @@ const Navbar = () => {
             )}
           </ul>
         </div>
+        {/*  */}
+        <div className="hidden lg:block">
+          <ul className="flex gap-6 px-8  font-Rancho text-2xl text-lime-600 ">
+            <Link to="/">
+              <li className="hover:underline hover:text-lime-400">
+                <a>Home</a>
+              </li>
+            </Link>
+            <Link to="/allProduct">
+              <li className="hover:underline hover:text-lime-400">
+                <a>Product</a>
+              </li>
+            </Link>
+            <Link>
+              <li className="hover:underline hover:text-lime-400">
+                <a>About Us</a>
+              </li>
+            </Link>
+            {user ? (
+              " "
+            ) : (
+              <Link to="/login">
+                <li>
+                  <a>Login</a>
+                </li>
+              </Link>
+            )}
+          </ul>
+        </div>
+        {/*  */}
         <span className="block lg:hidden">
           <GiFruitTree className="text-2xl text-lime-600" />
         </span>

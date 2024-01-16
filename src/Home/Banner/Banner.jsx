@@ -1,9 +1,9 @@
 import banner from "../../assets/banner.png";
-import { FaTree } from "react-icons/fa";
 import { RiPlantFill } from "react-icons/ri";
 import { FaSunPlantWilt } from "react-icons/fa6";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdForum } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -28,9 +28,11 @@ const Banner = () => {
               Live Tree elevates your space, creating a harmonious environment
               that enhances productivity and tranquility.
             </p>
-            <button className="px-8 py-1 mt-3 font-Rancho text-xl text-white rounded-br-full bg-lime-600 hover:bg-white hover:text-black hover:border-2 hover:border-black">
-              Shop Now
-            </button>
+            <Link to="/allProduct">
+              <button className="px-8 py-1 mt-3 font-Rancho text-xl text-white rounded-br-full bg-lime-600 transition duration-300 ease-in-out hover:bg-lime-400">
+                Shop Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>
