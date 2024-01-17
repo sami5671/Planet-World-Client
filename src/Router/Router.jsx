@@ -10,6 +10,8 @@ import UserCart from "./../Pages/User/userCart";
 import ProductDetails from "../Home/Trending Products/ProductDetails";
 import Products from "../Home/All Products/Products";
 import Weather from "../Home/Weather/Weather";
+import UserDashboard from "../Pages/User/UserDashboard";
+import ShippingInfo from "../Pages/User/ShippingInfo";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +62,14 @@ export const router = createBrowserRouter([
       {
         path: "userCart",
         element: <UserCart></UserCart>,
+      },
+      {
+        path: "userDashboard",
+        element: <UserDashboard></UserDashboard>,
+      },
+      {
+        path: "shippingInfo",
+        element: <ShippingInfo></ShippingInfo>,
       },
     ],
   },

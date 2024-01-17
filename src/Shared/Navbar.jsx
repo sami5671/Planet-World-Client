@@ -98,20 +98,13 @@ const Navbar = () => {
                 <a>
                   <span className="flex gap-1 items-center">
                     Weather
-                    <TiWeatherPartlySunny />
+                    <span className="text-yellow-400">
+                      <TiWeatherPartlySunny />
+                    </span>
                   </span>
                 </a>
               </li>
             </Link>
-            {user ? (
-              " "
-            ) : (
-              <Link to="/login">
-                <li>
-                  <a>Login</a>
-                </li>
-              </Link>
-            )}
           </ul>
         </div>
         {/*  */}
@@ -139,12 +132,16 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex-none gap-2">
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search tree name"
-            className="input input-bordered w-24 md:w-auto"
-          />
+        <div className="">
+          {user ? (
+            " "
+          ) : (
+            <Link to="/login">
+              <button className="border-2 border-lime-500 transition duration-300 ease-in-out hover:border-white hover:text-white hover:bg-lime-300 lg:px-6 py-1">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
         <div className="dropdown dropdown-end">
           {user ? (
@@ -160,6 +157,7 @@ const Navbar = () => {
           ) : (
             " "
           )}
+
           <ul
             tabIndex={0}
             className="font-Rancho mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box border-2 border-lime-300 w-52"
@@ -171,7 +169,7 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard </Link>
+              <Link to="/dashboard/userDashboard">Dashboard </Link>
             </li>
             <li>
               <a>Settings</a>

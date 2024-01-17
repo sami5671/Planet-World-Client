@@ -29,7 +29,7 @@ const UserCart = () => {
     }
   };
   return (
-    <section className="lg:ml-24 mt-2">
+    <section className="lg:ml-[100px] mb-12 mt-2 ">
       <SectionTitle2 heading={"Cart"}></SectionTitle2>
       <Link to="/allProduct">
         <div className="flex gap-2 text-white items-center hover:underline hover:text-slate-500">
@@ -37,7 +37,7 @@ const UserCart = () => {
           <p>Continue Order</p>
         </div>
       </Link>
-      <div className="grid grid-cols-1 lg:grid-cols-2 mt-4">
+      <div className="flex flex-col lg:flex-row mt-4">
         {/* cart items */}
         <div className="bg-white shadow-2xl lg:w-[500px] lg:h-[500px]">
           <Scrollbars style={{ width: "100%", height: "480px" }}>

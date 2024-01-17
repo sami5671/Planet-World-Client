@@ -8,6 +8,8 @@ import { BsFillCloudHaze2Fill } from "react-icons/bs";
 import { TiWeatherStormy } from "react-icons/ti";
 import { BsFillSunsetFill } from "react-icons/bs";
 import { WiSunrise } from "react-icons/wi";
+import { GiWindSlap } from "react-icons/gi";
+import { MdVisibility } from "react-icons/md";
 
 import moment from "moment";
 
@@ -57,6 +59,9 @@ const Weather = () => {
   const visibilityMeters = weather?.visibility;
   const visibilityKilometers = visibilityMeters / 1000;
   //   console.log(visibilityKilometers);
+
+  const windSpeed = weather?.wind?.speed;
+  //   console.log(windSpeed);
   //   =================================================================
   const handleSearch = () => {
     // console.log("handleSearch", search);
@@ -95,7 +100,7 @@ const Weather = () => {
               Search
             </button>
           </div>
-          <div className="mt-12 mr-auto px-8 lg:px-24 text-center flex flex-col lg:flex-row lg:gap-24 gap-5">
+          <div className="mt-12 lg:mt-24 mr-auto px-8 lg:px-32 text-center flex flex-col lg:flex-row lg:gap-24 gap-5">
             <div className="text-white">
               {/* location */}
               {/* <p className="text-2xl lg:text-3xl underline mb-4">Weather</p> */}
@@ -155,6 +160,41 @@ const Weather = () => {
                   <span className="text-xl">
                     Sunset:
                     <span className="font-bold"> {formattedSunset}</span>
+                  </span>
+                </span>
+              </p>
+              {/*temperature  */}
+              <p></p>
+            </div>
+
+            {/* 3rd */}
+            <div className="text-white">
+              {/* location */}
+              {/* <p className="text-2xl lg:text-3xl underline mb-4">Feels Like</p> */}
+              <p className="">
+                <span className="flex gap-2 items-center text-2xl lg:text-5xl font-bold underline mt-4 lg:mt-0 mb-5">
+                  <span>
+                    <TiWeatherStormy />
+                  </span>
+                  Wind & Visibility
+                </span>
+
+                <span className="flex gap-2 items-center ">
+                  <span className="flex items-center text-3xl">
+                    <GiWindSlap />
+                  </span>
+                  <span className="text-xl">
+                    Wind Speed:
+                    <span className="font-bold"> {windSpeed} K/h</span>
+                  </span>
+                </span>
+                <span className="flex gap-2 items-center text-3xl mt-3">
+                  <MdVisibility />
+                  <span className="text-xl">
+                    Visibility:
+                    <span className="font-bold ml-2">
+                      {visibilityKilometers} K/M
+                    </span>
                   </span>
                 </span>
               </p>
