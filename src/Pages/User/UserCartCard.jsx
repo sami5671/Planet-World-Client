@@ -33,7 +33,7 @@ const UserCartCard = ({ items }) => {
     });
   };
   return (
-    <section className="bg-white p-4 mb-4 flex items-center justify-between">
+    <section className="bg-white px-2 py-2 lg:p-4 mb-4 flex items-center justify-between">
       {/* Left side with image and name */}
       <div className="flex items-center">
         <img src={img1} className="w-16 h-16 object-cover rounded" alt={name} />
