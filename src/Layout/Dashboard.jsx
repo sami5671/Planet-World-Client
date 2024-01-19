@@ -3,6 +3,9 @@ import UseAuth from "../Hooks/UseAuth";
 import UseAdmin from "../Hooks/UseAdmin";
 import UseCart from "../Hooks/UseCart";
 import { FaCartShopping } from "react-icons/fa6";
+import { FaHome } from "react-icons/fa";
+import { FaTree } from "react-icons/fa";
+
 import { MdLocalShipping } from "react-icons/md";
 
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -80,12 +83,20 @@ const Dashboard = () => {
               </li>
             </NavLink>
 
-            <div className="divide">OR</div>
-            <li className="sidebar-list-item">
-              <a href="">
-                <BsPeopleFill className="icon" /> Customers
-              </a>
-            </li>
+            <div className="divider">OR</div>
+
+            <NavLink to="/">
+              <li className="sidebar-list-item flex items-center gap-2">
+                <FaHome /> HomePage
+              </li>
+            </NavLink>
+            <NavLink to="/products">
+              <li className="sidebar-list-item flex items-center gap-2">
+                <FaTree />
+                Products
+              </li>
+            </NavLink>
+            <div className="divider">Support</div>
             <li className="sidebar-list-item">
               <a href="">
                 <BsListCheck className="icon" /> Inventory
