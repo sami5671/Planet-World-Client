@@ -4,7 +4,6 @@ import ErrorPage from "../Shared/ErrorPage";
 import Home from "../Home/Home/Home";
 import Login from "../Provider/Login/Login";
 import SignUp from "../Provider/SignUp/SignUp";
-import Dashboard from "../Layout/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import UserCart from "./../Pages/User/userCart";
 import ProductDetails from "../Home/Trending Products/ProductDetails";
@@ -12,6 +11,14 @@ import Products from "../Home/All Products/Products";
 import Weather from "../Home/Weather/Weather";
 import UserDashboard from "../Pages/User/UserDashboard";
 import ShippingInfo from "../Pages/User/ShippingInfo";
+import AdminRoute from "./AdminRoute";
+import AdminDashboard from "../Pages/Admin/AdminDashboard";
+import AddProduct from "../Pages/Admin/AddProduct";
+import ManageUser from "../Pages/Admin/ManageUser";
+import OrderInfo from "../Pages/Admin/OrderInfo";
+import MessageSupportAdmin from "../Pages/Admin/MessageSupportAdmin";
+import ProductReplaceAdmin from "../Pages/Admin/ProductReplaceAdmin";
+import Dashboard from "../Layout/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +58,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/dashboard",
     element: (
@@ -70,6 +78,40 @@ export const router = createBrowserRouter([
       {
         path: "shippingInfo",
         element: <ShippingInfo></ShippingInfo>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <AdminRoute>
+        <Dashboard></Dashboard>
+      </AdminRoute>
+    ),
+    children: [
+      {
+        path: "adminDashboard",
+        element: <AdminDashboard></AdminDashboard>,
+      },
+      {
+        path: "addProduct",
+        element: <AddProduct></AddProduct>,
+      },
+      {
+        path: "manageUser",
+        element: <ManageUser></ManageUser>,
+      },
+      {
+        path: "orderInfo",
+        element: <OrderInfo></OrderInfo>,
+      },
+      {
+        path: "messageSupportAdmin",
+        element: <MessageSupportAdmin></MessageSupportAdmin>,
+      },
+      {
+        path: "productReplaceAdmin",
+        element: <ProductReplaceAdmin></ProductReplaceAdmin>,
       },
     ],
   },

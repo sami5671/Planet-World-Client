@@ -4,11 +4,13 @@ import { GiFruitTree } from "react-icons/gi";
 import UseAuth from "./../Hooks/UseAuth";
 import { Link, NavLink } from "react-router-dom";
 import UseCart from "../Hooks/UseCart";
+import UseAdmin from "../Hooks/UseAdmin";
 
 const Navbar = () => {
   // =================================================================
 
   const { user, logOut } = UseAuth();
+  const [isAdmin] = UseAdmin();
   const [cart] = UseCart();
 
   const handleLogOut = () => {
@@ -165,16 +167,27 @@ const Navbar = () => {
             <li>
               <a className="justify-between">
                 {user?.displayName}
-                <span className="badge">New</span>
+                {isAdmin ? (
+                  <span className="badge">Admin</span>
+                ) : (
+                  <>
+                    <span className="badge">User</span>
+                  </>
+                )}
               </a>
             </li>
-            <li>
-              <Link to="/dashboard/userDashboard">Dashboard </Link>
-            </li>
+            {isAdmin ? (
+              <li>
+                <Link to="/dashboard/adminDashboard">Dashboard</Link>
+              </li>
+            ) : (
+              <li>
+                <Link to="/dashboard/userDashboard">Dashboard</Link>
+              </li>
+            )}
             <li>
               <a>Settings</a>
             </li>
-
             {user ? (
               <li>
                 <button onClick={handleLogOut}>Logout</button>

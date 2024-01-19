@@ -18,8 +18,13 @@ const UserDashboard = () => {
   const navigate = useNavigate();
   // =================================================================
   return (
-    <section>
-      <div></div>
+    <section className="text-black">
+      <div>
+        helllo Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum
+        magni quasi odio nam, ullam et sed omnis suscipit molestias quae. Saepe
+        debitis excepturi harum assumenda aperiam repellat illum praesentium
+        libero!
+      </div>
     </section>
   );
 };

@@ -29,7 +29,7 @@ const UserCart = () => {
     }
   };
   return (
-    <section className="lg:ml-80 mb-12 px-2 mt-2 ">
+    <section className="lg:ml-12 mb-12 px-4 mt-2 ">
       <SectionTitle2 heading={"Cart"}></SectionTitle2>
       <Link to="/allProduct">
         <div className="flex gap-2 text-white items-center hover:underline hover:text-slate-500">
@@ -37,9 +37,9 @@ const UserCart = () => {
           <p>Continue Order</p>
         </div>
       </Link>
-      <div className="flex flex-col lg:flex-row mt-4">
+      <div className="flex flex-col lg:flex-row mt-1">
         {/* cart items */}
-        <div className="bg-white hidden lg:block shadow-2xl lg:w-[500px] lg:h-[500px]">
+        <div className="bg-white shadow-2xl lg:w-[500px] lg:h-[500px]">
           <Scrollbars style={{ width: "100%", height: "480px" }}>
             <div>
               {cart.map((items) => (
@@ -48,22 +48,13 @@ const UserCart = () => {
             </div>
           </Scrollbars>
         </div>
-        {/*duplicate cart items */}
-        <div className="bg-white lg:hidden block shadow-2xl w-[300px] lg:w-[500px] lg:h-[500px]">
-          <div>
-            {cart.map((items) => (
-              <UserCartCard key={items._id} items={items}></UserCartCard>
-            ))}
-          </div>
-        </div>
-
         {/* order Summary */}
         <div className="bg-white mt-4 lg:mt-0 lg:ml-12 lg:w-[350px] rounded-2xl px-2 lg:px-4 text-slate-500 mb-12 py-4">
           <h1 className="text-2xl text-lime-500 font-bold mb-2">
             Order Summary
           </h1>
           <hr />
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex justify-between items-center mb-2 ">
             <p>Subtotal ({cart.length} items)</p>
             <span className="text-black font-bold">${totalPrice}</span>
           </div>

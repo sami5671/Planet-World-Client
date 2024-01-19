@@ -1,6 +1,6 @@
 import { FaFacebookF } from "react-icons/fa";
 import UseAuth from "./../../Hooks/UseAuth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../../Components/GoogleLogin";
 import GithubLogin from "../../Components/GithubLogin";
 
@@ -109,6 +109,14 @@ const Login = () => {
                 />
               </div>
               <div>
+                <p className="text-[16px]">
+                  Don't Have an account?
+                  <Link to="/signup">
+                    <span className="text-[12px] ml-2 underline text-blue-600 font-bold">
+                      SignUp
+                    </span>
+                  </Link>
+                </p>
                 <p className="text-[12px]">
                   For any issues or assistance, email
                   <a href="" className="underline ml-2 text-blue-500">
