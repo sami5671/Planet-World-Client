@@ -7,13 +7,15 @@ import { IoInformationCircle } from "react-icons/io5";
 
 import SectionTitle2 from "./../../Components/SectionTitle2";
 import { TfiWrite } from "react-icons/tfi";
+import { Link } from "react-router-dom";
+import UpdateProductInfo from "./UpdateProductInfo";
 
 const ManageProduct = () => {
   // =================================================================
 
   const [products] = UseProduct();
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
   // console.log(products);
   // ======================for searching functionality===========================================
   const handleInputChange = (event) => {
@@ -31,6 +33,20 @@ const ManageProduct = () => {
     <>
       <section className="text-white bg-slate-900 ">
         <div className="mb-20">hello</div>
+        {/* Put this part before </body> tag */}
+        <div className="modal text-slate-900" role="dialog" id="my_modal_8">
+          <div className="modal-box">
+            <UpdateProductInfo productDetails={selectedProduct} />
+            <div className="modal-action">
+              <a
+                href="#"
+                className="bg-lime-700 px-8 py-2 text-white rounded-br-full rounded-tl-full font-bold hover:bg-lime-600"
+              >
+                Close
+              </a>
+            </div>
+          </div>
+        </div>
         <SectionTitle2 heading={"Manage Your Product"}></SectionTitle2>
         {/* for search */}
         <div className="relative mb-6 flex items-end justify-end mr-2">
@@ -84,40 +100,28 @@ const ManageProduct = () => {
                       <del>{item.previousPrice}</del>
                     </span>
                   </td>
-                  <td>
-                    <span className="text-2xl hover:text-lime-300">
-                      <IoInformationCircle />
-                    </span>
-                  </td>
+                  <Link to={`/product/${item._id}`}>
+                    <td>
+                      <span className="text-4xl hover:text-lime-500 text-center">
+                        <IoInformationCircle />
+                      </span>
+                    </td>
+                  </Link>
                   {/* update info */}
+
                   <td>
                     {/* The button to open modal */}
-                    <a href="#my_modal_8" className="">
-                      <button>
-                        <span className="text-2xl hover:text-lime-300">
-                          <TfiWrite />
-                        </span>
-                      </button>
-                    </a>
-                    {/* Put this part before </body> tag */}
-                    <div
-                      className="modal text-slate-900"
-                      role="dialog"
-                      id="my_modal_8"
-                    >
-                      <div className="modal-box">
-                        <h3 className="font-bold text-lg">Hello!</h3>
-                        <p className="py-4">
-                          This modal works with anchor links
-                        </p>
-                        <div className="modal-action">
-                          <a href="#" className="btn">
-                            Yay!
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                    <Link to={`${item._id}`}>
+                      <a href="#my_modal_8" className="">
+                        <button onClick={() => setSelectedProduct(item)}>
+                          <span className="text-2xl hover:text-lime-300">
+                            <TfiWrite />
+                          </span>
+                        </button>
+                      </a>
+                    </Link>
                   </td>
+
                   {/* update info */}
                   <td>
                     <button>

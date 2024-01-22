@@ -124,6 +124,12 @@ export const router = createBrowserRouter([
         path: "productReplaceAdmin",
         element: <ProductReplaceAdmin></ProductReplaceAdmin>,
       },
+      // {
+      //   path: "product/:id",
+      //   element: <UpdateProductInfo></UpdateProductInfo>,
+      //   loader: ({ params }) =>
+      //     fetch(`http://localhost:5000/product/${params.id}`),
+      // },
     ],
   },
 
