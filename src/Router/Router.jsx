@@ -13,12 +13,16 @@ import UserDashboard from "../Pages/User/UserDashboard";
 import ShippingInfo from "../Pages/User/ShippingInfo";
 import AdminRoute from "./AdminRoute";
 import AdminDashboard from "../Pages/Admin/AdminDashboard";
-import AddProduct from "../Pages/Admin/AddProduct";
 import ManageUser from "../Pages/Admin/ManageUser";
 import OrderInfo from "../Pages/Admin/OrderInfo";
 import MessageSupportAdmin from "../Pages/Admin/MessageSupportAdmin";
 import ProductReplaceAdmin from "../Pages/Admin/ProductReplaceAdmin";
 import Dashboard from "../Layout/Dashboard";
+import MessageSupportUser from "../Pages/User/MessageSupportUser";
+import ReplaceProductUser from "../Pages/User/ReplaceProductUser";
+import HomeDashboard from "./../Layout/HomeDashboard";
+import ManageProduct from "../Pages/Admin/ManageProduct";
+import NewDashboard from "../Layout/NewDash/Newdashboard";
 
 export const router = createBrowserRouter([
   {
@@ -58,12 +62,12 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
+  // NORMAL USER ROUTES
   {
-    path: "/dashboard",
+    path: "/newdashboard",
     element: (
       <PrivateRoute>
-        <Dashboard></Dashboard>
+        <NewDashboard></NewDashboard>
       </PrivateRoute>
     ),
     children: [
@@ -76,16 +80,65 @@ export const router = createBrowserRouter([
         element: <UserDashboard></UserDashboard>,
       },
       {
-        path: "shippingInfo",
+        path: "shippingInfoUser",
         element: <ShippingInfo></ShippingInfo>,
+      },
+      {
+        path: "messageSupportUser",
+        element: <MessageSupportUser></MessageSupportUser>,
+      },
+      {
+        path: "replaceProductUser",
+        element: <ReplaceProductUser></ReplaceProductUser>,
       },
     ],
   },
+  // ADMIN ROUTES
+  // {
+  //   path: "/dashboard",
+  //   element: (
+  //     <AdminRoute>
+  //       <Dashboard></Dashboard>
+  //     </AdminRoute>
+  //   ),
+  //   children: [
+  //     {
+  //       path: "adminDashboard",
+  //       element: <AdminDashboard></AdminDashboard>,
+  //     },
+  //     {
+  //       path: "HomeDashboard",
+  //       element: <HomeDashboard></HomeDashboard>,
+  //     },
+  //     {
+  //       path: "manageProduct",
+  //       element: <ManageProduct></ManageProduct>,
+  //     },
+  //     {
+  //       path: "manageUser",
+  //       element: <ManageUser></ManageUser>,
+  //     },
+  //     {
+  //       path: "orderInfo",
+  //       element: <OrderInfo></OrderInfo>,
+  //     },
+  //     {
+  //       path: "messageSupportAdmin",
+  //       element: <MessageSupportAdmin></MessageSupportAdmin>,
+  //     },
+  //     {
+  //       path: "productReplaceAdmin",
+  //       element: <ProductReplaceAdmin></ProductReplaceAdmin>,
+  //     },
+  //   ],
+  // },
+
+  // development section
   {
-    path: "/dashboard",
+    path: "/newdashboard",
     element: (
       <AdminRoute>
-        <Dashboard></Dashboard>
+        <NewDashboard></NewDashboard>
       </AdminRoute>
     ),
     children: [
@@ -94,8 +147,12 @@ export const router = createBrowserRouter([
         element: <AdminDashboard></AdminDashboard>,
       },
       {
-        path: "addProduct",
-        element: <AddProduct></AddProduct>,
+        path: "HomeDashboard",
+        element: <HomeDashboard></HomeDashboard>,
+      },
+      {
+        path: "manageProduct",
+        element: <ManageProduct></ManageProduct>,
       },
       {
         path: "manageUser",

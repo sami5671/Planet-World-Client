@@ -23,7 +23,7 @@ const Header = ({ OpenSidebar }) => {
 
   // =================================================================
   return (
-    <header className="header text-white">
+    <header className="header bg-slate-900 text-white">
       <div className="menu-icon">
         <BsJustify className="icon" onClick={OpenSidebar} />
       </div>

@@ -14,6 +14,8 @@ const Products = () => {
     });
   }, [axiosPublic]);
 
+  // console.log(allPlants);
+
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -21,7 +23,8 @@ const Products = () => {
   const filteredItems = allPlants.filter(
     (plant) =>
       plant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.plantType.toLowerCase().includes(searchQuery.toLowerCase())
+      plant.plantType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      plant.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -34,7 +37,7 @@ const Products = () => {
         <div className="relative">
           <input
             type="text"
-            placeholder="Search tree name"
+            placeholder="Search by Category || Name || Type"
             className="lg:w-[420px] border-2 rounded-lg border-lime-400 text-xl font-bold text-lime-600 h-[35px] pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent transition-all duration-300"
             onChange={handleInputChange}
           />
