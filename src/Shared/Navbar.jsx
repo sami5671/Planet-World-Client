@@ -123,7 +123,7 @@ const Navbar = () => {
           Plant World
         </a>
         <div>
-          <Link to="/newdashboard/UserCart">
+          <Link to="/dashboard/UserCart">
             <span>
               <FaCartShopping className="text-2xl mr-6 lg:text-3xl text-lime-500 lg:mr-2" />
               <span className="badge absolute -mt-10 ml-2 lg:ml-5 text-red-600 font-bold">
@@ -178,11 +178,11 @@ const Navbar = () => {
             </li>
             {isAdmin ? (
               <li>
-                <Link to="/newdashboard/adminDashboard">Dashboard</Link>
+                <Link to="/dashboard/adminDashboard">Dashboard</Link>
               </li>
             ) : (
               <li>
-                <Link to="/newdashboard/userDashboard">Dashboard</Link>
+                <Link to="/dashboard/userDashboard">Dashboard</Link>
               </li>
             )}
             <li>

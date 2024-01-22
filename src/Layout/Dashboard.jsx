@@ -1,206 +1,292 @@
-import { useState } from "react";
-import UseAuth from "../Hooks/UseAuth";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import UseAdmin from "../Hooks/UseAdmin";
+import UseAuth from "../Hooks/UseAuth";
 import UseCart from "../Hooks/UseCart";
-import { FaCartShopping } from "react-icons/fa6";
-import { FaHome } from "react-icons/fa";
-import { RiReplay5Fill } from "react-icons/ri";
-import { MdMessage } from "react-icons/md";
-import { MdManageAccounts } from "react-icons/md";
-import { FaProductHunt } from "react-icons/fa6";
-import { MdAssignmentAdd } from "react-icons/md";
-import { IoBagAddSharp } from "react-icons/io5";
-
-import { FaTree } from "react-icons/fa";
-
-import { MdLocalShipping } from "react-icons/md";
-
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import "./Dashboard.css";
-import Header from "./Header";
-
-import {
-  BsCart3,
-  BsFillArchiveFill,
-  BsFillGearFill,
-  BsFillGrid3X3GapFill,
-  BsGrid1X2Fill,
-  BsListCheck,
-  BsMenuButtonWideFill,
-  BsPeopleFill,
-} from "react-icons/bs";
-import { GiFruitTree } from "react-icons/gi";
-import UseUser from "../Hooks/UseUser";
 import UseProduct from "../Hooks/UseProduct";
+import UseUser from "../Hooks/UseUser";
+import { BsGrid1X2Fill } from "react-icons/bs";
+import {
+  MdAssignmentAdd,
+  MdLocalShipping,
+  MdManageAccounts,
+  MdMessage,
+} from "react-icons/md";
+import { IoBagAddSharp } from "react-icons/io5";
+import { RiReplay5Fill } from "react-icons/ri";
+import { FaHome } from "react-icons/fa";
+import { FaCartShopping, FaTree } from "react-icons/fa6";
+import { GiFruitTree } from "react-icons/gi";
+
 const Dashboard = () => {
   // =================================================================
-
-  const [open, setOpen] = useState(true);
   const { user, logOut } = UseAuth();
-  const navigate = useNavigate();
-
-  const [users] = UseUser();
   const [isAdmin] = UseAdmin();
-  const [cart] = UseCart();
+  const [users] = UseUser();
   const [products] = UseProduct();
+  const [cart] = UseCart();
 
-  // console.log(products);
   const handleLogOut = () => {
     logOut()
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch((error) => console.log(error));
   };
-  // console.log(isAdmin);
-  const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
 
-  const OpenSidebar = () => {
-    setOpenSidebarToggle(!openSidebarToggle);
-  };
   // =================================================================
   return (
     <>
-      <div className="grid-container">
-        <Header OpenSidebar={OpenSidebar}></Header>
-        <aside
-          id="sidebar"
-          className={openSidebarToggle ? "sidebar-responsive" : ""}
-        >
-          <ul className="sidebar-list bg-slate-900 text-white">
-            <div className="sidebar-title bg-slate-900">
-              <Link to="/">
-                <div className="sidebar-brand">
-                  <GiFruitTree className="text-5xl text-lime-600" />
-                  Plant World
-                </div>
-              </Link>
-              <span className="icon close_icon" onClick={OpenSidebar}>
-                X
-              </span>
+      <div className="navbar bg-slate-900 fixed z-10 ">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-10 w-10 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
             </div>
-
-            {isAdmin ? (
-              <>
-                <NavLink to="/dashboard/adminDashboard">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <BsGrid1X2Fill /> Dashboard
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/manageProduct">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <MdAssignmentAdd />
-                    Manage Product
-                    <span className="text-red-500 font-bold">
-                      ({products.length})
-                    </span>
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/manageUser">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <MdManageAccounts />
-                    Manage Users
-                    <span className="text-red-500 font-bold">
-                      ({users.length})
-                    </span>
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/orderInfo">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <IoBagAddSharp />
-                    Order Info
-                  </li>
-                </NavLink>
-                <div className="divider">Support</div>
-                <NavLink to="/dashboard/messageSupportAdmin">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <MdMessage />
-                    Messages
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/productReplaceAdmin">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <RiReplay5Fill />
-                    Product Replace
-                  </li>
-                </NavLink>
-                <div className="divider">OR</div>
-                <NavLink to="/">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <FaHome /> HomePage
-                  </li>
-                </NavLink>
-                <NavLink to="/allProduct">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <FaTree />
-                    Products
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/userCart">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <FaCartShopping />
-                    My Cart
-                    <span className="text-red-500 font-bold">
-                      ({cart.length})
-                    </span>
-                  </li>
-                </NavLink>
-              </>
-            ) : (
-              <>
-                <NavLink to="/dashboard/userDashboard">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <BsGrid1X2Fill /> Dashboard
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/userCart">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <FaCartShopping />
-                    My Cart
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/shippingInfoUser">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <MdLocalShipping />
-                    Shipping Info
-                  </li>
-                </NavLink>
-                <div className="divider">OR</div>
-                <NavLink to="/">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <FaHome /> HomePage
-                  </li>
-                </NavLink>
-                <NavLink to="/products">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <FaTree />
-                    Products
-                  </li>
-                </NavLink>
-                <div className="divider">Support</div>
-                <NavLink to="/dashboard/messageSupportUser">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <MdMessage /> Message Support
-                  </li>
-                </NavLink>
-                <NavLink to="/dashboard/replaceProductUser">
-                  <li className="sidebar-list-item flex items-center gap-2">
-                    <RiReplay5Fill />
-                    Replace your Product
-                  </li>
-                </NavLink>
-              </>
-            )}
-            <li className="sidebar-list-item">
-              <a href="">
-                <BsFillGearFill className="icon" /> Setting
+            <ul
+              tabIndex={0}
+              className="menu menu-sm -ml-2 dropdown-content mt-2 z-[1] shadow rounded-lg bg-slate-800 text-white w-52 lg:w-72 h-screen"
+            >
+              {isAdmin ? (
+                <>
+                  <NavLink to="/dashboard/adminDashboard">
+                    <li className="flex items-center gap-2 ">
+                      <BsGrid1X2Fill className="text-white" /> Dashboard
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/manageProduct">
+                    <li className="flex items-center gap-2">
+                      <MdAssignmentAdd />
+                      Manage Product
+                      <span className="text-red-500 font-bold">
+                        ({products.length})
+                      </span>
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/manageUser">
+                    <li className="flex items-center gap-2">
+                      <MdManageAccounts />
+                      Manage Users
+                      <span className="text-red-500 font-bold">
+                        ({users.length})
+                      </span>
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/orderInfo">
+                    <li className="flex items-center gap-2">
+                      <IoBagAddSharp />
+                      Order Info
+                    </li>
+                  </NavLink>
+                  <div className="divider">Support</div>
+                  <NavLink to="/dashboard/messageSupportAdmin">
+                    <li className="flex items-center gap-2">
+                      <MdMessage />
+                      Messages
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/productReplaceAdmin">
+                    <li className="flex items-center gap-2">
+                      <RiReplay5Fill />
+                      Product Replace
+                    </li>
+                  </NavLink>
+                  <div className="divider">OR</div>
+                  <NavLink to="/">
+                    <li className="flex items-center gap-2">
+                      <FaHome /> HomePage
+                    </li>
+                  </NavLink>
+                  <NavLink to="/allProduct">
+                    <li className="flex items-center gap-2">
+                      <FaTree />
+                      Products
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/userCart">
+                    <li className="flex items-center gap-2">
+                      <FaCartShopping />
+                      My Cart
+                      <span className="text-red-500 font-bold">
+                        ({cart.length})
+                      </span>
+                    </li>
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/dashboard/userDashboard">
+                    <li className="flex items-center gap-2">
+                      <BsGrid1X2Fill /> Dashboard
+                    </li>
+                  </NavLink>
+                  <NavLink to="/newdashboard/userCart">
+                    <li className="flex items-center gap-2">
+                      <FaCartShopping />
+                      My Cart
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/shippingInfoUser">
+                    <li className="flex items-center gap-2">
+                      <MdLocalShipping />
+                      Shipping Info
+                    </li>
+                  </NavLink>
+                  <div className="divider">OR</div>
+                  <NavLink to="/">
+                    <li className="flex items-center gap-2">
+                      <FaHome /> HomePage
+                    </li>
+                  </NavLink>
+                  <NavLink to="/products">
+                    <li className="flex items-center gap-2">
+                      <FaTree />
+                      Products
+                    </li>
+                  </NavLink>
+                  <div className="divider">Support</div>
+                  <NavLink to="/dashboard/messageSupportUser">
+                    <li className="flex items-center gap-2">
+                      <MdMessage /> Message Support
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/replaceProductUser">
+                    <li className="flex items-center gap-2">
+                      <RiReplay5Fill />
+                      Replace your Product
+                    </li>
+                  </NavLink>
+                </>
+              )}
+            </ul>
+          </div>
+          {/*  */}
+          {/* <div className="hidden lg:block">
+        <ul className="flex gap-6 px-8  font-Rancho text-2xl text-lime-600 ">
+          <Link to="/">
+            <li className="hover:underline hover:text-lime-400">
+              <a>Home</a>
+            </li>
+          </Link>
+          <Link to="/allProduct">
+            <li className="hover:underline hover:text-lime-400">
+              <a>Product</a>
+            </li>
+          </Link>
+          <Link>
+            <li className="hover:underline hover:text-lime-400">
+              <a>About Us</a>
+            </li>
+          </Link>
+          <Link to="/weather">
+            <li className="hover:underline hover:text-lime-400">
+              <a>
+                <span className="flex gap-1 items-center">
+                  Weather
+                  <span className="text-yellow-400">
+                    <TiWeatherPartlySunny />
+                  </span>
+                </span>
               </a>
             </li>
-          </ul>
-        </aside>
-        <div className="">
-          <Outlet></Outlet>
+          </Link>
+        </ul>
+      </div> */}
+          {/*  */}
         </div>
+        <div className="flex-1 text-center items-end justify-end gap-2">
+          <div className="">
+            {user ? (
+              " "
+            ) : (
+              <Link to="/login">
+                <button className="border-2 border-lime-500 transition duration-300 ease-in-out hover:border-white hover:text-white hover:bg-lime-300 lg:px-6 py-1">
+                  Login
+                </button>
+              </Link>
+            )}
+          </div>
+
+          <div className="dropdown dropdown-end">
+            {user ? (
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img alt="photo" src={user?.photoURL} />
+                </div>
+              </div>
+            ) : (
+              " "
+            )}
+            <span>
+              <p className="bg-gradient-to-br from-lime-400 to-green-700 text-transparent bg-clip-text font-bold text-2xl">
+                (Admin)
+              </p>
+            </span>
+            <ul
+              tabIndex={0}
+              className=" mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content text-white  rounded-md bg-slate-900 w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  {user?.displayName}
+                  {isAdmin ? (
+                    <span className="badge">Admin</span>
+                  ) : (
+                    <>
+                      <span className="badge">User</span>
+                    </>
+                  )}
+                </a>
+              </li>
+              {isAdmin ? (
+                <li className="hover:text-lime-700">
+                  <Link to="/dashboard/adminDashboard">Dashboard</Link>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/dashboard/userDashboard">Dashboard</Link>
+                </li>
+              )}
+              <li>
+                <a>Settings</a>
+              </li>
+              {user ? (
+                <li>
+                  <button onClick={handleLogOut}>Logout</button>
+                </li>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <li>
+                      <button>Login</button>
+                    </li>
+                  </Link>
+                </>
+              )}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="">
+        <Outlet></Outlet>
       </div>
     </>
   );

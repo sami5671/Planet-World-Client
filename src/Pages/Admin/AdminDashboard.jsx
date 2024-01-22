@@ -63,7 +63,7 @@ const AdminDashboard = () => {
 
   const TriangleBar = (props) => {
     const { fill, x, y, width, height } = props;
-    return <path d={getPath(x, y, width, height)} stroke="none" fill="fill" />;
+    return <path d={getPath(x, y, width, height)} stroke="none" fill="#fff" />;
   };
 
   const renderBarChart = (
@@ -80,7 +80,7 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <section className="bg-black">
+      <section className="bg-slate-950 lg:px-72">
         {/* Box info */}
         <div className="">hello</div>
         <div className="text-white mt-6 lg:ml-12 lg:mt-12">

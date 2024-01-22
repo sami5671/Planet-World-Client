@@ -3,6 +3,7 @@ import UseProduct from "../../Hooks/UseProduct";
 import { FaInfoCircle, FaTrashRestoreAlt } from "react-icons/fa";
 import { FaAngular, FaFileSignature, FaSearchengin } from "react-icons/fa6";
 import { useState } from "react";
+import SectionTitle2 from "./../../Components/SectionTitle2";
 
 const ManageProduct = () => {
   // =================================================================
@@ -25,7 +26,9 @@ const ManageProduct = () => {
   // =================================================================================================
   return (
     <>
-      <section className="text-white bg-slate-900">
+      <section className="text-white bg-slate-900 ">
+        <div className="mb-16">hello</div>
+        <SectionTitle2 heading={"Manage Your Product"}></SectionTitle2>
         {/* for search */}
         <div className="relative mb-6">
           <div className="relative">

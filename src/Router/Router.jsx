@@ -20,9 +20,7 @@ import ProductReplaceAdmin from "../Pages/Admin/ProductReplaceAdmin";
 import Dashboard from "../Layout/Dashboard";
 import MessageSupportUser from "../Pages/User/MessageSupportUser";
 import ReplaceProductUser from "../Pages/User/ReplaceProductUser";
-import HomeDashboard from "./../Layout/HomeDashboard";
 import ManageProduct from "../Pages/Admin/ManageProduct";
-import NewDashboard from "../Layout/NewDash/Newdashboard";
 
 export const router = createBrowserRouter([
   {
@@ -64,10 +62,10 @@ export const router = createBrowserRouter([
   },
   // NORMAL USER ROUTES
   {
-    path: "/newdashboard",
+    path: "/dashboard",
     element: (
       <PrivateRoute>
-        <NewDashboard></NewDashboard>
+        <Dashboard></Dashboard>
       </PrivateRoute>
     ),
     children: [
@@ -94,61 +92,17 @@ export const router = createBrowserRouter([
     ],
   },
   // ADMIN ROUTES
-  // {
-  //   path: "/dashboard",
-  //   element: (
-  //     <AdminRoute>
-  //       <Dashboard></Dashboard>
-  //     </AdminRoute>
-  //   ),
-  //   children: [
-  //     {
-  //       path: "adminDashboard",
-  //       element: <AdminDashboard></AdminDashboard>,
-  //     },
-  //     {
-  //       path: "HomeDashboard",
-  //       element: <HomeDashboard></HomeDashboard>,
-  //     },
-  //     {
-  //       path: "manageProduct",
-  //       element: <ManageProduct></ManageProduct>,
-  //     },
-  //     {
-  //       path: "manageUser",
-  //       element: <ManageUser></ManageUser>,
-  //     },
-  //     {
-  //       path: "orderInfo",
-  //       element: <OrderInfo></OrderInfo>,
-  //     },
-  //     {
-  //       path: "messageSupportAdmin",
-  //       element: <MessageSupportAdmin></MessageSupportAdmin>,
-  //     },
-  //     {
-  //       path: "productReplaceAdmin",
-  //       element: <ProductReplaceAdmin></ProductReplaceAdmin>,
-  //     },
-  //   ],
-  // },
-
-  // development section
   {
-    path: "/newdashboard",
+    path: "/dashboard",
     element: (
       <AdminRoute>
-        <NewDashboard></NewDashboard>
+        <Dashboard></Dashboard>
       </AdminRoute>
     ),
     children: [
       {
         path: "adminDashboard",
         element: <AdminDashboard></AdminDashboard>,
-      },
-      {
-        path: "HomeDashboard",
-        element: <HomeDashboard></HomeDashboard>,
       },
       {
         path: "manageProduct",
@@ -172,4 +126,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  // development section
 ]);
