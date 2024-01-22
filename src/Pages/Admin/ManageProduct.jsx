@@ -1,9 +1,12 @@
 import Swal from "sweetalert2";
 import UseProduct from "../../Hooks/UseProduct";
-import { FaInfoCircle, FaTrashRestoreAlt } from "react-icons/fa";
+import { FaInfoCircle, FaTrash, FaTrashRestoreAlt } from "react-icons/fa";
 import { FaAngular, FaFileSignature, FaSearchengin } from "react-icons/fa6";
 import { useState } from "react";
+import { IoInformationCircle } from "react-icons/io5";
+
 import SectionTitle2 from "./../../Components/SectionTitle2";
+import { TfiWrite } from "react-icons/tfi";
 
 const ManageProduct = () => {
   // =================================================================
@@ -11,8 +14,8 @@ const ManageProduct = () => {
   const [products] = UseProduct();
   const [searchQuery, setSearchQuery] = useState("");
 
-  console.log(products);
-  // =================================================================
+  // console.log(products);
+  // ======================for searching functionality===========================================
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -27,10 +30,10 @@ const ManageProduct = () => {
   return (
     <>
       <section className="text-white bg-slate-900 ">
-        <div className="mb-16">hello</div>
+        <div className="mb-20">hello</div>
         <SectionTitle2 heading={"Manage Your Product"}></SectionTitle2>
         {/* for search */}
-        <div className="relative mb-6">
+        <div className="relative mb-6 flex items-end justify-end mr-2">
           <div className="relative">
             <input
               type="text"
@@ -47,13 +50,14 @@ const ManageProduct = () => {
         <div className="overflow-x-auto">
           <table className="table ">
             {/* head */}
-            <thead className="text-white">
+            <thead className="text-white text-[16px]">
               <tr>
                 <th>No</th>
                 <th>Name</th>
                 <th>Category</th>
                 <th>Image</th>
                 <th>Price</th>
+                <th>Details</th>
                 <th>Update</th>
                 <th>Delete</th>
               </tr>
@@ -80,8 +84,48 @@ const ManageProduct = () => {
                       <del>{item.previousPrice}</del>
                     </span>
                   </td>
-                  <td>Update</td>
-                  <td>Delete</td>
+                  <td>
+                    <span className="text-2xl hover:text-lime-300">
+                      <IoInformationCircle />
+                    </span>
+                  </td>
+                  {/* update info */}
+                  <td>
+                    {/* The button to open modal */}
+                    <a href="#my_modal_8" className="">
+                      <button>
+                        <span className="text-2xl hover:text-lime-300">
+                          <TfiWrite />
+                        </span>
+                      </button>
+                    </a>
+                    {/* Put this part before </body> tag */}
+                    <div
+                      className="modal text-slate-900"
+                      role="dialog"
+                      id="my_modal_8"
+                    >
+                      <div className="modal-box">
+                        <h3 className="font-bold text-lg">Hello!</h3>
+                        <p className="py-4">
+                          This modal works with anchor links
+                        </p>
+                        <div className="modal-action">
+                          <a href="#" className="btn">
+                            Yay!
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  {/* update info */}
+                  <td>
+                    <button>
+                      <span className="text-xl text-red-600 hover:text-orange-500">
+                        <FaTrash />
+                      </span>
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

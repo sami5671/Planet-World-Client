@@ -15,7 +15,6 @@ import { IoBagAddSharp } from "react-icons/io5";
 import { RiReplay5Fill } from "react-icons/ri";
 import { FaHome } from "react-icons/fa";
 import { FaCartShopping, FaTree } from "react-icons/fa6";
-import { GiFruitTree } from "react-icons/gi";
 
 const Dashboard = () => {
   // =================================================================
@@ -34,7 +33,7 @@ const Dashboard = () => {
   // =================================================================
   return (
     <>
-      <div className="navbar bg-slate-900 fixed z-10 ">
+      <div className="navbar bg-slate-900 shadow-lg shadow-white fixed z-10 ">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -44,7 +43,7 @@ const Dashboard = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-10 w-10 text-white"
+                className="h-10 w-8 lg:w-10 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -59,70 +58,91 @@ const Dashboard = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm -ml-2 dropdown-content mt-2 z-[1] shadow rounded-lg bg-slate-800 text-white w-52 lg:w-72 h-screen"
+              className="menu menu-sm -ml-2 dropdown-content mt-4 lg:mt-5 z-[1] shadow rounded-lg bg-slate-800 text-white w-52 lg:w-72 h-screen"
             >
               {isAdmin ? (
                 <>
                   <NavLink to="/dashboard/adminDashboard">
-                    <li className="flex items-center gap-2 ">
-                      <BsGrid1X2Fill className="text-white" /> Dashboard
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <BsGrid1X2Fill />
+                        Dashboard
+                      </span>
                     </li>
                   </NavLink>
                   <NavLink to="/dashboard/manageProduct">
-                    <li className="flex items-center gap-2">
-                      <MdAssignmentAdd />
-                      Manage Product
-                      <span className="text-red-500 font-bold">
-                        ({products.length})
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <MdAssignmentAdd />
+                        Manage Product{" "}
+                        <span className="text-red-500 font-bold">
+                          ({products.length})
+                        </span>
                       </span>
                     </li>
                   </NavLink>
                   <NavLink to="/dashboard/manageUser">
-                    <li className="flex items-center gap-2">
-                      <MdManageAccounts />
-                      Manage Users
-                      <span className="text-red-500 font-bold">
-                        ({users.length})
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <MdManageAccounts />
+                        Manage Users
+                        <span className="text-red-500 font-bold">
+                          ({users.length})
+                        </span>
                       </span>
                     </li>
                   </NavLink>
                   <NavLink to="/dashboard/orderInfo">
-                    <li className="flex items-center gap-2">
-                      <IoBagAddSharp />
-                      Order Info
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <IoBagAddSharp />
+                        Order Info
+                      </span>
                     </li>
                   </NavLink>
                   <div className="divider">Support</div>
+                  <hr />
                   <NavLink to="/dashboard/messageSupportAdmin">
-                    <li className="flex items-center gap-2">
-                      <MdMessage />
-                      Messages
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <MdMessage />
+                        Messages
+                      </span>
                     </li>
                   </NavLink>
                   <NavLink to="/dashboard/productReplaceAdmin">
-                    <li className="flex items-center gap-2">
-                      <RiReplay5Fill />
-                      Product Replace
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <RiReplay5Fill />
+                        Product Replace
+                      </span>
                     </li>
                   </NavLink>
                   <div className="divider">OR</div>
+                  <hr />
                   <NavLink to="/">
-                    <li className="flex items-center gap-2">
-                      <FaHome /> HomePage
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <FaHome /> HomePage
+                      </span>
                     </li>
                   </NavLink>
                   <NavLink to="/allProduct">
-                    <li className="flex items-center gap-2">
-                      <FaTree />
-                      Products
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <FaTree />
+                        Products
+                      </span>
                     </li>
                   </NavLink>
                   <NavLink to="/dashboard/userCart">
-                    <li className="flex items-center gap-2">
-                      <FaCartShopping />
-                      My Cart
-                      <span className="text-red-500 font-bold">
-                        ({cart.length})
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <FaCartShopping />
+                        My Cart
+                        <span className="text-red-500 font-bold">
+                          ({cart.length})
+                        </span>
                       </span>
                     </li>
                   </NavLink>
@@ -236,13 +256,23 @@ const Dashboard = () => {
               " "
             )}
             <span>
-              <p className="bg-gradient-to-br from-lime-400 to-green-700 text-transparent bg-clip-text font-bold text-2xl">
-                (Admin)
-              </p>
+              {isAdmin ? (
+                <>
+                  <p className="bg-gradient-to-br from-lime-400 to-green-700 text-transparent bg-clip-text font-bold text-[12px] lg:text-2xl">
+                    (Admin)
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="bg-gradient-to-br from-lime-400 to-green-700 text-transparent bg-clip-text font-bold text-[12px] lg:text-2xl">
+                    (User)
+                  </p>
+                </>
+              )}
             </span>
             <ul
               tabIndex={0}
-              className=" mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content text-white  rounded-md bg-slate-900 w-52"
+              className=" mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content text-white  rounded-md bg-slate-950 w-52"
             >
               <li>
                 <a className="justify-between">
