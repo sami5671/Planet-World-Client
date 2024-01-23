@@ -21,6 +21,7 @@ import Dashboard from "../Layout/Dashboard";
 import MessageSupportUser from "../Pages/User/MessageSupportUser";
 import ReplaceProductUser from "../Pages/User/ReplaceProductUser";
 import ManageProduct from "../Pages/Admin/ManageProduct";
+import UpdateProductInfo from "../Pages/Admin/UpdateProductInfo";
 
 export const router = createBrowserRouter([
   {
@@ -124,12 +125,12 @@ export const router = createBrowserRouter([
         path: "productReplaceAdmin",
         element: <ProductReplaceAdmin></ProductReplaceAdmin>,
       },
-      // {
-      //   path: "product/:id",
-      //   element: <UpdateProductInfo></UpdateProductInfo>,
-      //   loader: ({ params }) =>
-      //     fetch(`http://localhost:5000/product/${params.id}`),
-      // },
+      {
+        path: "updateProduct/:id",
+        element: <UpdateProductInfo></UpdateProductInfo>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/product/${params.id}`),
+      },
     ],
   },
 
