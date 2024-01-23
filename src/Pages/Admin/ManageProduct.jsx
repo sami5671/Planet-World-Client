@@ -8,12 +8,14 @@ import { IoInformationCircle } from "react-icons/io5";
 import SectionTitle2 from "./../../Components/SectionTitle2";
 import { TfiWrite } from "react-icons/tfi";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ManageProduct = () => {
   // =================================================================
 
-  const [products] = UseProduct();
+  const [products, refetch] = UseProduct();
   const [searchQuery, setSearchQuery] = useState("");
+  const axiosSecure = useAxiosSecure();
 
   // console.log(products);
   // ======================for searching functionality===========================================
@@ -27,6 +29,32 @@ const ManageProduct = () => {
       plant.plantType.toLowerCase().includes(searchQuery.toLowerCase()) ||
       plant.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  // ==================================for delete any product===============================================================
+  const handleDeleteProduct = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/deleteProduct/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            console.log(res);
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
   // =================================================================================================
   return (
     <>
@@ -107,7 +135,7 @@ const ManageProduct = () => {
 
                   {/* update info */}
                   <td>
-                    <button>
+                    <button onClick={() => handleDeleteProduct(item._id)}>
                       <span className="text-xl text-red-600 hover:text-orange-500">
                         <FaTrash />
                       </span>

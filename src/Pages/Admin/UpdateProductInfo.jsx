@@ -1,10 +1,15 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const UpdateProductInfo = () => {
   // =================================================================================================================
   const productDetails = useLoaderData();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   // console.log(productDetails);
   const {
+    _id,
     name,
     previousPrice,
     newPrice,
@@ -31,7 +36,6 @@ const UpdateProductInfo = () => {
     const plantType = form.treeType.value;
     const material = form.material.value;
     const color = form.color.value;
-
     const category = form.category.value;
     const stock = form.stock.value;
     const rating = form.rating.value;
@@ -53,7 +57,20 @@ const UpdateProductInfo = () => {
       img3,
       img4,
     };
-    console.log(updateProduct);
+    // console.log(updateProduct);
+    axiosSecure.patch(`/updateProduct/${_id}`, updateProduct).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${name} is updated to the menu successfully`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // Optionally, you can navigate here
+        navigate("/dashboard/manageProduct");
+      }
+    });
   };
   // =================================================================================================
   return (
@@ -92,8 +109,8 @@ const UpdateProductInfo = () => {
                 <input
                   type="text"
                   name="previousPrice"
-                  defaultValue={`$${previousPrice}`}
-                  placeholder="Product Name"
+                  defaultValue={previousPrice}
+                  placeholder="Product price"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -106,8 +123,8 @@ const UpdateProductInfo = () => {
                 <input
                   type="text"
                   name="newPrice"
-                  defaultValue={`$${newPrice}`}
-                  placeholder="Product Name"
+                  defaultValue={newPrice}
+                  placeholder="Product price"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -121,7 +138,7 @@ const UpdateProductInfo = () => {
                   type="text"
                   name="treeType"
                   defaultValue={plantType}
-                  placeholder="Product Name"
+                  placeholder="Product type"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -138,7 +155,7 @@ const UpdateProductInfo = () => {
                   type="text"
                   name="material"
                   defaultValue={material}
-                  placeholder="Product Name"
+                  placeholder="Product Material"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -152,7 +169,7 @@ const UpdateProductInfo = () => {
                   type="text"
                   name="color"
                   defaultValue={color}
-                  placeholder="Product Name"
+                  placeholder="Product Color"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -166,7 +183,7 @@ const UpdateProductInfo = () => {
                   type="text"
                   name="category"
                   defaultValue={category}
-                  placeholder="Product Name"
+                  placeholder="Product Category"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -180,7 +197,7 @@ const UpdateProductInfo = () => {
                   type="text"
                   name="stock"
                   defaultValue={stock}
-                  placeholder="Product External Link"
+                  placeholder="Product Stock"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -194,7 +211,7 @@ const UpdateProductInfo = () => {
                   type="text"
                   name="rating"
                   defaultValue={rating}
-                  placeholder="Product External Link"
+                  placeholder="Product Rating"
                   className="input input-bordered w-full"
                 />
               </label>
