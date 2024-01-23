@@ -1,6 +1,7 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { AiOutlineEdit } from "react-icons/ai";
 
 const UpdateProductInfo = () => {
   // =================================================================================================================
@@ -78,7 +79,9 @@ const UpdateProductInfo = () => {
       <div className="mb-16">hello</div>
       <div className="bg-slate-900 text-white p-4">
         <h2 className="text-3xl md:text-5xl font-extrabold font-rancho text-center mb-12">
-          Update
+          <span className="flex items-center justify-center">
+            <AiOutlineEdit />
+          </span>
           <br />({name})
         </h2>
         <span>

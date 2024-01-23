@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import UseProduct from "../../Hooks/UseProduct";
-import { FaInfoCircle, FaTrash, FaTrashRestoreAlt } from "react-icons/fa";
-import { FaAngular, FaFileSignature, FaSearchengin } from "react-icons/fa6";
+import { FaTrash } from "react-icons/fa";
+import { FaSearchengin } from "react-icons/fa6";
 import { useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
 
@@ -62,6 +62,7 @@ const ManageProduct = () => {
         <div className="mb-20">hello</div>
 
         <SectionTitle2 heading={"Manage Your Product"}></SectionTitle2>
+
         {/* for search */}
         <div className="relative mb-6 flex items-end justify-end mr-2">
           <div className="relative">
@@ -78,6 +79,9 @@ const ManageProduct = () => {
         </div>
         {/* for search */}
         <div className="overflow-x-auto">
+          <h1 className="ml-4 font-bold hover:underline">
+            Total: {products.length}
+          </h1>
           <table className="table ">
             {/* head */}
             <thead className="text-white text-[16px]">

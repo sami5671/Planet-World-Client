@@ -3,13 +3,17 @@ import UseUser from "../../Hooks/UseUser";
 import SectionTitle2 from "../../Components/SectionTitle2";
 import { FaSearchengin } from "react-icons/fa";
 import SectionTitlleUser from "../../Components/SectionTitlleUser";
+import { FaUser } from "react-icons/fa6";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ManageUser = () => {
   //  =================================================================
 
-  const [users] = UseUser();
+  const [users, refetch] = UseUser();
   const [searchQuery, setSearchQuery] = useState("");
-
+  const axiosSecure = useAxiosSecure();
   // console.log(users);
   // =================================================================
   const handleInputChange = (event) => {
@@ -27,18 +31,41 @@ const ManageUser = () => {
       roleLowerCase.includes(searchQuery.toLowerCase())
     );
   });
+  // ===========================Make Admin & Moderator ======================================
+  const handleMakeAdmin = (user) => {
+    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast(`${user.name} Is Now Admin`);
+        refetch();
+      }
+    });
+  };
   // =================================================================
 
   return (
     <section className="text-white bg-slate-900 ">
       <div className="mb-20">hello</div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
       <SectionTitlleUser heading={"manage Users"}></SectionTitlleUser>
       {/* for search */}
-      <div className="relative mb-6">
+      <div className="relative mb-6 flex items-end justify-end mr-2">
         <div className="relative">
           <input
             type="text"
-            placeholder="Name || email || Role"
+            placeholder="Name || Email || Role"
             className="lg:w-[420px] border-2 rounded-lg border-lime-400 text-xl font-bold text-lime-600 h-[35px] pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent transition-all duration-300"
             onChange={handleInputChange}
           />
@@ -57,29 +84,51 @@ const ManageUser = () => {
               <th>Name</th>
               <th>Photo</th>
               <th>Email</th>
-              <th>Role</th>
-              <th>Update</th>
+              <th>Make Admin</th>
+              <th>Make Moderator</th>
               <th>Delete</th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
-            {filteredItems.map((item, index) => (
-              <tr key={item._id}>
+            {filteredItems.map((user, index) => (
+              <tr key={user._id}>
                 <td>{index + 1}</td>
-                <td>{item.name}</td>
+                <td>{user.name}</td>
                 <td>
                   <div className="avatar">
                     <div className="rounded-full w-12 h-12">
-                      <img src={item.photoURL} alt="img" />
+                      <img src={user.photoURL} alt="img" />
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span className="text-[18px] font-bold">{item.email}</span>
+                  <span className="text-[16px] font-bold">{user.email}</span>
                 </td>
-                <td>{item.role}</td>
-                <td>Update</td>
+                <td>
+                  {user.role === "admin" ? (
+                    "Admin"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      className="px-4 py-3 rounded-lg bg-cyan-500"
+                    >
+                      <FaUser className="text-white text-xl" />
+                    </button>
+                  )}
+                </td>
+                <td>
+                  {user.role === "moderator" ? (
+                    "Moderator"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeModerator(user)}
+                      className="btn bg-cyan-500 btn-xl"
+                    >
+                      <FaUser className="text-white text-2xl" />
+                    </button>
+                  )}
+                </td>
                 <td>Delete</td>
               </tr>
             ))}
