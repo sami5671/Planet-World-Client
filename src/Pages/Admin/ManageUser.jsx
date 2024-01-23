@@ -4,6 +4,8 @@ import SectionTitle2 from "../../Components/SectionTitle2";
 import { FaSearchengin } from "react-icons/fa";
 import SectionTitlleUser from "../../Components/SectionTitlleUser";
 import { FaUser } from "react-icons/fa6";
+import { AiFillMediumCircle } from "react-icons/ai";
+
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -37,6 +39,16 @@ const ManageUser = () => {
       // console.log(res.data);
       if (res.data.modifiedCount > 0) {
         toast(`${user.name} Is Now Admin`);
+        refetch();
+      }
+    });
+  };
+
+  const handleMakeModerator = (user) => {
+    axiosSecure.patch(`/users/moderator/${user._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast(`${user.name} Is Now A Moderator`);
         refetch();
       }
     });
@@ -119,13 +131,17 @@ const ManageUser = () => {
                 </td>
                 <td>
                   {user.role === "moderator" ? (
-                    "Moderator"
+                    <>
+                      <button className="px-4 py-3 rounded-lg bg-white">
+                        <AiFillMediumCircle className="text-orange-500 text-xl" />
+                      </button>
+                    </>
                   ) : (
                     <button
                       onClick={() => handleMakeModerator(user)}
-                      className="btn bg-cyan-500 btn-xl"
+                      className="px-4 py-3 rounded-lg bg-cyan-500"
                     >
-                      <FaUser className="text-white text-2xl" />
+                      <FaUser className="text-white text-xl" />
                     </button>
                   )}
                 </td>
