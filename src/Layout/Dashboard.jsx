@@ -5,6 +5,8 @@ import UseCart from "../Hooks/UseCart";
 import UseProduct from "../Hooks/UseProduct";
 import UseUser from "../Hooks/UseUser";
 import { BsGrid1X2Fill } from "react-icons/bs";
+import { GiTreeGrowth } from "react-icons/gi";
+
 import {
   MdAssignmentAdd,
   MdLocalShipping,
@@ -70,11 +72,19 @@ const Dashboard = () => {
                       </span>
                     </li>
                   </NavLink>
+                  <NavLink to="/dashboard/addProduct">
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <GiTreeGrowth />
+                        Add Product
+                      </span>
+                    </li>
+                  </NavLink>
                   <NavLink to="/dashboard/manageProduct">
                     <li className="">
                       <span className="text-white flex items-center">
                         <MdAssignmentAdd />
-                        Manage Product{" "}
+                        Manage Product
                         <span className="text-red-500 font-bold">
                           ({products.length})
                         </span>

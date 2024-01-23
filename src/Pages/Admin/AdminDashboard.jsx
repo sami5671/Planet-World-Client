@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BarChart,
   Bar,
@@ -8,6 +7,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
 import { FaTree, FaUsers } from "react-icons/fa6";
 import { BiSolidMessageRoundedDetail } from "react-icons/bi";
 import UseUser from "../../Hooks/UseUser";
@@ -16,12 +16,10 @@ import UseCart from "../../Hooks/UseCart";
 import UseProduct from "../../Hooks/UseProduct";
 
 const AdminDashboard = () => {
-  // =================================================================
   const [users] = UseUser();
   const [isAdmin] = UseAdmin();
   const [cart] = UseCart();
   const [products] = UseProduct();
-  // =================================================================
 
   const data = [
     { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
@@ -80,33 +78,28 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <section className="bg-slate-950 lg:px-72">
-        {/* Box info */}
-        <div className="">hello</div>
+      <section className="bg-slate-950">
+        <div className="mb-32">hello</div>
         <div className="text-white mt-6 lg:ml-12 lg:mt-12">
           <div className="flex flex-col lg:flex-row px-4 gap-4 lg:gap-2 font-bold text-xl">
-            {/* Box 1 */}
             <div className="bg-green-600 rounded-lg lg:w-[170px] lg:h-[80px] py-4 px-2 shadow-md shadow-white">
               <span className="flex items-center gap-2">
                 Products <FaTree />
               </span>
               ({products.length})
             </div>
-            {/* Box 2 */}
             <div className="bg-orange-500 rounded-lg lg:w-[170px] lg:h-[80px] py-4 px-2 shadow-md shadow-white">
               <span className="flex items-center gap-2">
                 Customers <FaUsers />
               </span>
               ({users.length})
             </div>
-            {/* Box 3 */}
             <div className="bg-blue-600 rounded-lg lg:w-[170px] lg:h-[80px] py-4 px-2 shadow-md shadow-white">
               <span className="flex items-center gap-2">
                 Products <FaTree />
               </span>
               ({products.length})
             </div>
-            {/* Box 4 */}
             <div className="bg-red-700 rounded-lg lg:w-[170px] lg:h-[80px] py-4 px-2 shadow-md shadow-white">
               <span className="flex items-center gap-2">
                 Messages <BiSolidMessageRoundedDetail />
@@ -115,67 +108,10 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-        {/* Graph info */}
-        <div className="mt-12 lg:ml-6 mb-12"> {renderBarChart}</div>
+        <div className="mt-12 lg:ml-6 mb-12">{renderBarChart}</div>
       </section>
     </>
   );
 };
 
 export default AdminDashboard;
-
-{
-  /* <div className="mt-6 lg:ml-12 lg:mt-12">
-        <div className="charts">
-          <ResponsiveContainer width="80%" height="100%">
-            <BarChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="pv" fill="#8884d8" />
-              <Bar dataKey="uv" fill="#82ca9d" />
-            </BarChart>
-          </ResponsiveContainer>
-
-          <ResponsiveContainer width="80%" height="100%">
-            <LineChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="pv"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-        
-      </div> */
-}

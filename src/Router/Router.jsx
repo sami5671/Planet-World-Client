@@ -22,6 +22,7 @@ import MessageSupportUser from "../Pages/User/MessageSupportUser";
 import ReplaceProductUser from "../Pages/User/ReplaceProductUser";
 import ManageProduct from "../Pages/Admin/ManageProduct";
 import UpdateProductInfo from "../Pages/Admin/UpdateProductInfo";
+import AddProduct from "../Pages/Admin/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
       {
         path: "adminDashboard",
         element: <AdminDashboard></AdminDashboard>,
+      },
+      {
+        path: "addProduct",
+        element: <AddProduct></AddProduct>,
       },
       {
         path: "manageProduct",

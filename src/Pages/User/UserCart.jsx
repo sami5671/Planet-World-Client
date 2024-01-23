@@ -29,17 +29,18 @@ const UserCart = () => {
     }
   };
   return (
-    <section className="lg:ml-12 mb-12 px-4 mt-2 ">
+    <section className="bg-slate-900 px-4 mt-2 ">
+      <div className="mb-24">hello</div>
       <SectionTitle2 heading={"Cart"}></SectionTitle2>
       <Link to="/allProduct">
-        <div className="flex gap-2 text-white items-center hover:underline hover:text-slate-500">
+        <div className="flex gap-2 lg:px-44 text-white items-center hover:underline hover:text-slate-500">
           <FaArrowLeft />
           <p>Continue Order</p>
         </div>
       </Link>
-      <div className="flex flex-col lg:flex-row mt-1">
+      <div className="flex flex-col lg:px-44 lg:flex-row mt-1">
         {/* cart items */}
-        <div className="bg-white shadow-2xl lg:w-[500px] lg:h-[500px]">
+        <div className="bg-white shadow-2xl mb-12 lg:w-[500px] lg:h-[500px]">
           <Scrollbars style={{ width: "100%", height: "480px" }}>
             <div>
               {cart.map((items) => (
