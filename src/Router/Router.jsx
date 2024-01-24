@@ -23,6 +23,7 @@ import ReplaceProductUser from "../Pages/User/ReplaceProductUser";
 import ManageProduct from "../Pages/Admin/ManageProduct";
 import UpdateProductInfo from "../Pages/Admin/UpdateProductInfo";
 import AddProduct from "../Pages/Admin/AddProduct";
+import AddTrendingProduct from "../Pages/Admin/AddTrendingProduct";
 
 export const router = createBrowserRouter([
   {
@@ -113,6 +114,10 @@ export const router = createBrowserRouter([
       {
         path: "manageProduct",
         element: <ManageProduct></ManageProduct>,
+      },
+      {
+        path: "trendingProduct",
+        element: <AddTrendingProduct></AddTrendingProduct>,
       },
       {
         path: "manageUser",

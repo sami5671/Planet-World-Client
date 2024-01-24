@@ -37,7 +37,7 @@ const ProductDetails = () => {
 
   const [activeImg, setActiveImg] = useState(images.img1);
 
-  console.log(productDetails);
+  // console.log(productDetails);
   // =================================================================
   const handleAddToCart = (tree) => {
     if (user && user.email) {

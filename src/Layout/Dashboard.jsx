@@ -6,6 +6,7 @@ import UseProduct from "../Hooks/UseProduct";
 import UseUser from "../Hooks/UseUser";
 import { BsGrid1X2Fill } from "react-icons/bs";
 import { GiTreeGrowth } from "react-icons/gi";
+import { IoMdTrendingUp } from "react-icons/io";
 
 import {
   MdAssignmentAdd,
@@ -88,6 +89,14 @@ const Dashboard = () => {
                         <span className="text-red-500 font-bold">
                           ({products.length})
                         </span>
+                      </span>
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/trendingProduct">
+                    <li className="">
+                      <span className="text-white flex items-center">
+                        <IoMdTrendingUp />
+                        Manage Trending Products
                       </span>
                     </li>
                   </NavLink>

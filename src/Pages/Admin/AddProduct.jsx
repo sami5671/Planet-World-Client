@@ -1,59 +1,49 @@
-import { useNavigate } from "react-router-dom";
+import { GiTreehouse } from "react-icons/gi";
+import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { AiOutlineEdit } from "react-icons/ai";
 import Swal from "sweetalert2";
 
-const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddProduct = () => {
-  // =================================================================
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const axiosSecure = useAxiosSecure();
-  //   const navigate = useNavigate();
-  // ==========================imgbb host=======================================
-  const handleAddProduct = async (event) => {
-    event.preventDefault();
 
-    const form = event.target;
-    const ProductName = form.ProductName.value;
-    const ProductPhoto = form.ProductPhotoURL.files[0];
-    const ProductDescription = form.ProductDescription.value;
-    const ProductOwnerName = form.productOwnerName.value;
-    const ProductOwnerPhoto = form.ProductOwnerPhoto.value;
-    const ProductOwnerEmail = form.ProductOwnerEmail.value;
+  // =================================================================
+  const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-    const ProductTag = form.productTag.value;
-    const ProductExternalLink = form.productExternalLink.value;
-
+  // =================================================================
+  const onSubmit = async (data) => {
+    const imageFile = new FormData();
+    imageFile.append("image", data.photoURL[0]);
+    const imageRes = await axiosSecure.post(image_hosting_api, imageFile);
+    const imageUrl1 = imageRes.data.data.url;
     try {
-      const imageFile = new FormData();
-      imageFile.append("image", ProductPhoto);
-      const imageRes = await axiosSecure.post(image_hosting_api, imageFile);
-      const imageUrl = imageRes.data.data.url;
-
-      // send data to imgbb
-
-      const AddProduct = {
-        ProductName: ProductName,
-        ProductPhoto: imageUrl,
-        ProductDescription: ProductDescription,
-        ProductOwnerName: ProductOwnerName,
-        ProductOwnerPhoto: ProductOwnerPhoto,
-        ProductOwnerEmail: ProductOwnerEmail,
-        ProductTag: ProductTag,
-        ProductExternalLink: ProductExternalLink,
+      const addProduct = {
+        name: data.treeName,
+        previousPrice: data.previousPrice,
+        newPrice: data.newPrice,
+        stock: data.stock,
+        rating: data.rating,
+        color: data.color,
+        plantType: data.plantType,
+        material: data.material,
+        description: data.description,
+        img1: imageUrl1,
       };
-      // Add product data to mongodb
-      const res = await axiosSecure.post("/addProduct", AddProduct);
+      // console.log(addProduct);
+      const res = await axiosSecure.post("/addProduct", addProduct);
       if (res.data.insertedId) {
         Swal.fire("The Product has been added successfully");
-        // navigate("/dashboard/myProduct");
       }
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
-
   // =================================================================
   return (
     <section>
@@ -61,14 +51,18 @@ const AddProduct = () => {
       <div className="bg-slate-900 text-white p-4">
         <h2 className="text-3xl md:text-5xl font-extrabold font-rancho text-center mb-12">
           <span className="flex items-center justify-center">
-            <AiOutlineEdit />
+            <GiTreehouse />
           </span>
           Add Product
         </h2>
         <span>
           {/* <img src="" className="rounded-full w-[50px] h-[50px]" alt="" /> */}
         </span>
-        <form onSubmit={handleAddProduct} className="text-black font-bold">
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="text-black font-bold"
+        >
           {/* product details */}
           <div className="mb-4 md:flex">
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
@@ -78,11 +72,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="treeName"
-                  placeholder="Product Name"
+                  {...register("treeName", { required: true })}
+                  placeholder="Tree Name"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree Name is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -91,11 +88,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="previousPrice"
+                  {...register("previousPrice", { required: true })}
                   placeholder="Product price"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree previousPrice is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -104,11 +104,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="newPrice"
+                  {...register("newPrice", { required: true })}
                   placeholder="Product price"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree New Price is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -117,11 +120,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="treeType"
+                  {...register("plantType", { required: true })}
                   placeholder="Product type"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree Type is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -130,11 +136,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="material"
+                  {...register("material", { required: true })}
                   placeholder="Product Material"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree Material is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -143,11 +152,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="color"
+                  {...register("color", { required: true })}
                   placeholder="Product Color"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree Color is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -156,14 +168,16 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="category"
+                  {...register("category", { required: true })}
                   placeholder="Product Category"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree Category is required</p>
+              )}
             </div>
           </div>
-
           {/* image section */}
 
           <div className="mb-4 md:flex">
@@ -174,25 +188,32 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="file"
-                  name="ProductPhotoURL"
+                  multiple={true}
+                  {...register("photoURL", { required: true })}
                   placeholder="photoURL"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full text-red-700"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree img 1 is required</p>
+              )}
             </div>
 
-            <div className="form-control mb-4 md:w-1/2 md:mr-2">
+            {/* <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
                 <span className="text-white">Image 2</span>
               </label>
               <label className="input-group">
                 <input
                   type="file"
-                  name="ProductPhotoURL"
+                  {...register("photoURL2", { required: true })}
                   placeholder="photoURL"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full text-red-700"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree img 2 is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -201,11 +222,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="file"
-                  name="ProductPhotoURL"
+                  {...register("photoURL3", { required: true })}
                   placeholder="photoURL"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full text-red-700"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree img 3 is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -214,13 +238,17 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="file"
-                  name="ProductPhotoURL"
+                  {...register("photoURL4", { required: true })}
                   placeholder="photoURL"
                   className="input input-bordered w-full text-red-700"
                 />
               </label>
-            </div>
+              {errors.treeName && (
+                <p className="text-red-500">Tree img 4 is required</p>
+              )}
+            </div> */}
           </div>
+
           {/* Review Description and Rating of the product row */}
           <div className="mb-4 md:flex">
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
@@ -230,11 +258,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="stock"
+                  {...register("stock", { required: true })}
                   placeholder="Product Stock"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree Stock 1 is required</p>
+              )}
             </div>
             <div className="form-control mb-4 md:w-1/2 md:mr-2">
               <label className="label">
@@ -243,11 +274,14 @@ const AddProduct = () => {
               <label className="input-group">
                 <input
                   type="text"
-                  name="rating"
+                  {...register("rating", { required: true })}
                   placeholder="Product Rating"
                   className="input input-bordered w-full"
                 />
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree rating is required</p>
+              )}
             </div>
           </div>
           {/* ============== */}
@@ -258,11 +292,14 @@ const AddProduct = () => {
               </label>
               <label className="input-group">
                 <textarea
-                  name="description"
+                  {...register("description", { required: true })}
                   placeholder="Write Product Description here......."
                   className="input input-bordered lg:w-2/3 h-32"
                 ></textarea>
               </label>
+              {errors.treeName && (
+                <p className="text-red-500">Tree description is required</p>
+              )}
             </div>
           </div>
           {/* ============== */}
