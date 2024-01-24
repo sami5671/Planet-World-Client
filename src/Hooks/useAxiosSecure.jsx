@@ -13,7 +13,7 @@ const useAxiosSecure = () => {
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("access-token");
-      console.log("Request stopped by interceptor", token);
+      // console.log("Request stopped by interceptor", token);
       config.headers.authorization = `Bearer ${token}`;
       // Do something before request is sent
       return config;
@@ -33,7 +33,7 @@ const useAxiosSecure = () => {
     },
     async (error) => {
       const status = error.response.status;
-      console.log("Error in the interceptor: ", status);
+      // console.log("Error in the interceptor: ", status);
       // for 401 or 403 logout the user and move the user to the login
       if (status === 401 || status === 403) {
         await logOut();
@@ -44,7 +44,6 @@ const useAxiosSecure = () => {
     // {
     //   // Any status codes that falls outside the range of 2xx cause this function to trigger
     //   // Do something with response error
-
     // }
   );
   // =================================================================================================================================================================================

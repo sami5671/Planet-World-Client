@@ -43,7 +43,7 @@ const ManageProduct = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/deleteProduct/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-            console.log(res);
+            // console.log(res);
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",

@@ -2,6 +2,7 @@ import { GiTreehouse } from "react-icons/gi";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const AddProduct = () => {
   const {
@@ -11,7 +12,7 @@ const AddProduct = () => {
   } = useForm();
 
   const axiosSecure = useAxiosSecure();
-
+  const axiosPublic = useAxiosPublic();
   // =================================================================
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -20,7 +21,7 @@ const AddProduct = () => {
   const onSubmit = async (data) => {
     const imageFile = new FormData();
     imageFile.append("image", data.photoURL[0]);
-    const imageRes = await axiosSecure.post(image_hosting_api, imageFile);
+    const imageRes = await axiosPublic.post(image_hosting_api, imageFile);
     const imageUrl1 = imageRes.data.data.url;
     try {
       const addProduct = {
