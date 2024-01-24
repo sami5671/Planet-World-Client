@@ -17,7 +17,7 @@ import {
 import { IoBagAddSharp } from "react-icons/io5";
 import { RiReplay5Fill } from "react-icons/ri";
 import { FaHome } from "react-icons/fa";
-import { FaCartShopping, FaTree } from "react-icons/fa6";
+import { FaCartShopping, FaCcVisa, FaTree } from "react-icons/fa6";
 
 const Dashboard = () => {
   // =================================================================
@@ -169,44 +169,73 @@ const Dashboard = () => {
               ) : (
                 <>
                   <NavLink to="/dashboard/userDashboard">
-                    <li className="flex items-center gap-2">
-                      <BsGrid1X2Fill /> Dashboard
+                    <li className="mb-2">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <BsGrid1X2Fill className="text-xl" />
+                        Dashboard
+                      </span>
                     </li>
                   </NavLink>
-                  <NavLink to="/newdashboard/userCart">
-                    <li className="flex items-center gap-2">
-                      <FaCartShopping />
-                      My Cart
+                  <NavLink to="/dashboard/userCart">
+                    <li className="mb-2">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <FaCartShopping className="text-xl" />
+                        My Cart
+                        <span className="text-red-500 font-bold">
+                          ({cart.length})
+                        </span>
+                      </span>
                     </li>
                   </NavLink>
                   <NavLink to="/dashboard/shippingInfoUser">
-                    <li className="flex items-center gap-2">
-                      <MdLocalShipping />
-                      Shipping Info
+                    <li className="mb-2">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <MdLocalShipping className="text-xl" />
+                        Shipping Info
+                      </span>
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/paymentInfoUser">
+                    <li className="mb-2">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <FaCcVisa className="text-xl" />
+                        Payment Info
+                      </span>
                     </li>
                   </NavLink>
                   <div className="divider">OR</div>
+                  <hr />
                   <NavLink to="/">
-                    <li className="flex items-center gap-2">
-                      <FaHome /> HomePage
+                    <li className="mb-2 ">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <FaHome className="text-xl" /> HomePage
+                      </span>
                     </li>
                   </NavLink>
-                  <NavLink to="/products">
-                    <li className="flex items-center gap-2">
-                      <FaTree />
-                      Products
+                  <NavLink to="/allProduct">
+                    <li className="">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <FaTree className="text-xl" />
+                        Products
+                      </span>
                     </li>
                   </NavLink>
                   <div className="divider">Support</div>
+                  <hr />
                   <NavLink to="/dashboard/messageSupportUser">
-                    <li className="flex items-center gap-2">
-                      <MdMessage /> Message Support
+                    <li className="">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <MdMessage className="text-xl" />
+                        Messages
+                      </span>
                     </li>
                   </NavLink>
                   <NavLink to="/dashboard/replaceProductUser">
-                    <li className="flex items-center gap-2">
-                      <RiReplay5Fill />
-                      Replace your Product
+                    <li className="">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <RiReplay5Fill className="text-xl" />
+                        Product Replace
+                      </span>
                     </li>
                   </NavLink>
                 </>

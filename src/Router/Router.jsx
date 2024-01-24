@@ -5,7 +5,6 @@ import Home from "../Home/Home/Home";
 import Login from "../Provider/Login/Login";
 import SignUp from "../Provider/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
-import UserCart from "./../Pages/User/userCart";
 import ProductDetails from "../Home/Trending Products/ProductDetails";
 import Products from "../Home/All Products/Products";
 import Weather from "../Home/Weather/Weather";
@@ -24,6 +23,8 @@ import ManageProduct from "../Pages/Admin/ManageProduct";
 import UpdateProductInfo from "../Pages/Admin/UpdateProductInfo";
 import AddProduct from "../Pages/Admin/AddProduct";
 import AddTrendingProduct from "../Pages/Admin/AddTrendingProduct";
+import PaymentInfoUser from "../Pages/User/PaymentInfoUser";
+import UserCart from "../Pages/User/UserCart";
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
       {
         path: "shippingInfoUser",
         element: <ShippingInfo></ShippingInfo>,
+      },
+      {
+        path: "paymentInfoUser",
+        element: <PaymentInfoUser></PaymentInfoUser>,
       },
       {
         path: "messageSupportUser",

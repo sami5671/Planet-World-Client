@@ -1,7 +1,7 @@
 import { useState } from "react";
 import UseUser from "../../Hooks/UseUser";
 import SectionTitle2 from "../../Components/SectionTitle2";
-import { FaSearchengin } from "react-icons/fa";
+import { FaSearchengin, FaUserSlash } from "react-icons/fa";
 import SectionTitlleUser from "../../Components/SectionTitlleUser";
 import { FaUser } from "react-icons/fa6";
 import { AiFillMediumCircle } from "react-icons/ai";
@@ -46,13 +46,41 @@ const ManageUser = () => {
 
   const handleMakeModerator = (user) => {
     axiosSecure.patch(`/users/moderator/${user._id}`).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.modifiedCount > 0) {
         toast(`${user.name} Is Now A Moderator`);
         refetch();
       }
     });
   };
+  // ==============================Delete User===================================
+
+  const handleDeleteUser = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/deleteUser/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            // console.log(res);
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
   // =================================================================
 
   return (
@@ -98,7 +126,7 @@ const ManageUser = () => {
               <th>Email</th>
               <th>Make Admin</th>
               <th>Make Moderator</th>
-              <th>Delete</th>
+              <th>Delete User</th>
             </tr>
           </thead>
           <tbody>
@@ -145,7 +173,13 @@ const ManageUser = () => {
                     </button>
                   )}
                 </td>
-                <td>Delete</td>
+                <td>
+                  <button onClick={() => handleDeleteUser(user._id)}>
+                    <span className="text-2xl text-red-600 hover:text-orange-500">
+                      <FaUserSlash />
+                    </span>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -18,7 +18,8 @@ const UserDashboard = () => {
   const navigate = useNavigate();
   // =================================================================
   return (
-    <section className="text-black">
+    <section className="text-white bg-slate-900">
+      <div className="mb-24">hello</div>
       <div>
         helllo Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum
         magni quasi odio nam, ullam et sed omnis suscipit molestias quae. Saepe

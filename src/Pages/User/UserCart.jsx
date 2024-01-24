@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import SectionTitle2 from "../../Components/SectionTitle2";
 import UseCart from "../../Hooks/UseCart";
 import UserCartCard from "./UserCartCard";
 import Scrollbars from "react-custom-scrollbars-2";
 import { FaArrowLeft } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import SectionTitle4 from "../../Components/SectionTitle4";
 
 const UserCart = () => {
   const [cart] = UseCart();
@@ -31,11 +31,11 @@ const UserCart = () => {
   return (
     <section className="bg-slate-900 px-4 mt-2 ">
       <div className="mb-24">hello</div>
-      <SectionTitle2 heading={"Cart"}></SectionTitle2>
+      <SectionTitle4 heading={"Cart"}></SectionTitle4>
       <Link to="/allProduct">
         <div className="flex gap-2 lg:px-44 text-white items-center hover:underline hover:text-slate-500">
           <FaArrowLeft />
-          <p>Continue Order</p>
+          <p>Continue Order ({cart.length})</p>
         </div>
       </Link>
       <div className="flex flex-col lg:px-44 lg:flex-row mt-1">
