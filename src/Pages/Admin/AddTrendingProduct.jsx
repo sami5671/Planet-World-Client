@@ -7,7 +7,7 @@ import { IoInformationCircle } from "react-icons/io5";
 import { BsArrowUpRightSquareFill } from "react-icons/bs";
 import { GiPineTree } from "react-icons/gi";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddTrendingProduct = () => {
   // =================================================================
@@ -42,6 +42,19 @@ const AddTrendingProduct = () => {
   return (
     <section className="text-white bg-slate-900">
       <div className="mb-20">hello</div>
+      <ToastContainer
+        position="top-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
       <SectionTitle3 heading={"Trending Your Product"}></SectionTitle3>
 
       {/* for search */}
