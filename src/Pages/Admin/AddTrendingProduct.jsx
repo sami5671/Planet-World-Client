@@ -1,5 +1,7 @@
 import { useState } from "react";
 import SectionTitle3 from "../../Components/SectionTitle3";
+import { LuRemoveFormatting } from "react-icons/lu";
+
 import UseProduct from "../../Hooks/UseProduct";
 import { FaSearchengin } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -33,6 +35,16 @@ const AddTrendingProduct = () => {
       // console.log(res.data);
       if (res.data.modifiedCount > 0) {
         toast(`${item.name} Is Now a Trending Product`);
+        refetch();
+      }
+    });
+  };
+
+  const handleRemoveTrending = (item) => {
+    axiosSecure.patch(`/product/removeTrending/${item._id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast(`${item.name} has been Removed from Trending Product`);
         refetch();
       }
     });
@@ -139,7 +151,20 @@ const AddTrendingProduct = () => {
                 </td>
 
                 {/* remove trending info */}
-                <td></td>
+                <td>
+                  {item.trending === "true" ? (
+                    <>
+                      <button
+                        onClick={() => handleRemoveTrending(item)}
+                        className="px-4 py-3 rounded-lg bg-cyan-500"
+                      >
+                        <LuRemoveFormatting className="text-white text-xl" />
+                      </button>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

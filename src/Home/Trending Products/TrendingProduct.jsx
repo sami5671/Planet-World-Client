@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosPublic from "./../../Hooks/useAxiosPublic";
 import TrendingProductCard from "./TrendingProductCard";
 import SectionTitle from "../../Components/SectionTitle";
+import UseProduct from "../../Hooks/UseProduct";
 const TrendingProduct = () => {
   // ----------------------------------------------------------------
   const axiosPublic = useAxiosPublic();
@@ -11,7 +12,15 @@ const TrendingProduct = () => {
       setAllPlants(res.data);
     });
   }, [axiosPublic]);
-  console.log(allPlants);
+  // console.log(allPlants);
+
+  // --------------------------Using UseProduct Hook --------------------------------------
+  const [products] = UseProduct();
+  // console.log(products);
+
+  const trendingProducts = products.filter(
+    (product) => product.trending === "true"
+  );
   // ----------------------------------------------------------------
   return (
     <div>
@@ -20,8 +29,8 @@ const TrendingProduct = () => {
           heading={"Our Trending Trees"}
           subHeading={"popularized products here"}
         ></SectionTitle>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6 gap-4 px-12">
-          {allPlants.map((plants) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-6 gap-4 lg:mt-12 px-12">
+          {trendingProducts.map((plants) => (
             <TrendingProductCard
               key={plants._id}
               plants={plants}
