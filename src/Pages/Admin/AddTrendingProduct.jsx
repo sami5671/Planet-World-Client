@@ -1,15 +1,17 @@
 import { useState } from "react";
 import SectionTitle3 from "../../Components/SectionTitle3";
 import UseProduct from "../../Hooks/UseProduct";
-import { FaAngular, FaSearchengin, FaTrash } from "react-icons/fa";
+import { FaSearchengin } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IoInformationCircle } from "react-icons/io5";
-import { TfiWrite } from "react-icons/tfi";
 import { BsArrowUpRightSquareFill } from "react-icons/bs";
 import { GiPineTree } from "react-icons/gi";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 const AddTrendingProduct = () => {
   // =================================================================
+  const axiosSecure = useAxiosSecure();
   const [products, refetch] = UseProduct();
   const [searchQuery, setSearchQuery] = useState("");
   //   console.log(products);
@@ -25,6 +27,18 @@ const AddTrendingProduct = () => {
       plant.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
   //   =================================================================
+  // ===========================Make trending  & remove trending ======================================
+  const handleMakeTrending = (item) => {
+    axiosSecure.patch(`/product/trending/${item._id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast(`${item.name} Is Now a Trending Product`);
+        refetch();
+      }
+    });
+  };
+  //   =================================================================
+
   return (
     <section className="text-white bg-slate-900">
       <div className="mb-20">hello</div>
@@ -97,7 +111,7 @@ const AddTrendingProduct = () => {
                 <td>
                   {item.trending === "true" ? (
                     <>
-                      <button className="px-4 py-3 rounded-lg bg-white">
+                      <button className="px-4 py-3 rounded-lg">
                         <BsArrowUpRightSquareFill className="text-green-500 text-xl" />
                       </button>
                     </>
