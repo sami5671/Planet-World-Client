@@ -6,29 +6,72 @@ import { FaArrowLeft } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import SectionTitle4 from "../../Components/SectionTitle4";
+import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import UseAuth from "../../Hooks/UseAuth";
 
 const UserCart = () => {
-  const [cart] = UseCart();
-  const totalPrice = cart.reduce((total, item) => total + item.newPrice, 0);
+  // =================================================================
 
-  const [finalPrice, setFinalPrice] = useState(totalPrice);
+  const [cart] = UseCart();
+  const { user } = UseAuth();
+  const axiosSecure = useAxiosSecure();
+  // console.log(cart);
+  let totalPrice = 0;
+
+  cart.forEach((item) => {
+    totalPrice += parseFloat(item.newPrice);
+  });
+
+  // console.log(totalPrice);
+
+  // const [finalPrice, setFinalPrice] = useState(totalPrice);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const handleApplyVoucher = (event) => {
-    const code = document.getElementById("voucherInput").value;
-    if (code === "R45") {
-      const newFinalPrice = Number(totalPrice) - 5;
-      setFinalPrice(newFinalPrice);
-      setButtonDisabled(true);
-    } else {
-      Swal.fire({
-        title: "Opps Wrong Code Entered",
-        text: "Wrong Voucher Code",
-        icon: "question",
-      });
-      document.getElementById("voucherInput").value = "";
-    }
-  };
+  // const handleApplyVoucher = (event) => {
+  //   const code = document.getElementById("voucherInput").value;
+  //   if (code === "R45") {
+  //     const newFinalPrice = Number(totalPrice) - 5;
+  //     setFinalPrice(newFinalPrice);
+  //     setButtonDisabled(true);
+  //   } else {
+  //     Swal.fire({
+  //       title: "Opps Wrong Code Entered",
+  //       text: "Wrong Voucher Code",
+  //       icon: "question",
+  //     });
+  //     document.getElementById("voucherInput").value = "";
+  //   }
+  // };
+
+  // =======================for payment form==========================================
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm();
+
+  // const onSubmit = async (data) => {
+  //   // Handle form submission here
+
+  //   const addOrder = {
+  //     name: data.name,
+  //     email: user.email,
+  //     userPhoto: user.photoURL,
+  //     address: data.address,
+  //     phone: data.phone,
+  //     cart: [...cart],
+  //   };
+  //   // console.log(addOrder);
+
+  //   const res = await axiosSecure.post("/order", addOrder);
+  //   if (res.data.insertedId) {
+  //     Swal.fire("The Product has been added successfully");
+  //   }
+  // You can redirect to the payment page or perform other actions as needed
+  // };
+  // =================================================================
   return (
     <section className="bg-slate-900 px-4 mt-2 ">
       <div className="mb-24">hello</div>
@@ -78,7 +121,7 @@ const UserCart = () => {
               />
             </div>
             <button
-              onClick={handleApplyVoucher}
+              // onClick={handleApplyVoucher}
               disabled={buttonDisabled}
               className={`${
                 buttonDisabled
@@ -96,26 +139,55 @@ const UserCart = () => {
           </div>
           <div className="flex justify-between items-center mt-4 mb-2">
             <p className="text-xl">After Discount</p>
-            <span className="text-orange-500 text-xl">$ {finalPrice}</span>
+            <span className="text-orange-500 text-xl">$ {totalPrice}</span>
           </div>
+          {/* ==================user info============ */}
+          <hr />
+          {/* <div className="mt-2">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                type="text"
+                {...register("name", { required: true })}
+                placeholder="Enter Name...."
+                className="border-2"
+              />
+              <br />
+              <input
+                type="text"
+                {...register("address", { required: true })}
+                placeholder="Address...."
+                className="border-2"
+              />
+              <br />
+              <input
+                type="text"
+                {...register("phone", { required: true })}
+                placeholder="Phone Number...."
+                className="border-2"
+              />
+            </form>
+          </div> */}
+
+          {/* ======================================= */}
           {cart.length ? (
-            <>
-              <Link to="/dashboard/payment">
-                <button className="w-full px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-amber-500 bg-amber-400 mt-6 text-white font-bold">
-                  Proceed To Checkout
-                </button>
-              </Link>
-            </>
-          ) : (
-            <>
+            <Link to="/dashboard/payment">
               <button
-                disabled
-                className="w-full px-4 py-2 rounded-md transition duration-300 ease-in-out  bg-amber-200 mt-6 text-white font-bold"
+                type="button"
+                className="w-full px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-amber-500 bg-amber-400 mt-6 text-white font-bold"
               >
                 Proceed To Checkout
               </button>
-            </>
+            </Link>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="w-full px-4 py-2 rounded-md transition duration-300 ease-in-out bg-amber-200 mt-6 text-white font-bold"
+            >
+              Proceed To Checkout
+            </button>
           )}
+
           {/* Add any other order summary details here */}
         </div>
       </div>
