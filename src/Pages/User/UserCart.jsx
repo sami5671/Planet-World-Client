@@ -17,6 +17,7 @@ const UserCart = () => {
   const { user } = UseAuth();
   const axiosSecure = useAxiosSecure();
   // console.log(cart);
+
   let totalPrice = 0;
 
   cart.forEach((item) => {
@@ -56,19 +57,16 @@ const UserCart = () => {
   //   // Handle form submission here
 
   //   const addOrder = {
-  //     name: data.name,
-  //     email: user.email,
-  //     userPhoto: user.photoURL,
   //     address: data.address,
+  //     postCode: data.postCode,
   //     phone: data.phone,
-  //     cart: [...cart],
   //   };
-  //   // console.log(addOrder);
+  //   console.log(addOrder);
 
-  //   const res = await axiosSecure.post("/order", addOrder);
-  //   if (res.data.insertedId) {
-  //     Swal.fire("The Product has been added successfully");
-  //   }
+  // const res = await axiosSecure.post("/cart", addOrder);
+  // if (res.data.insertedId) {
+  //   Swal.fire("The Product has been added successfully");
+  // }
   // You can redirect to the payment page or perform other actions as needed
   // };
   // =================================================================
@@ -143,30 +141,6 @@ const UserCart = () => {
           </div>
           {/* ==================user info============ */}
           <hr />
-          {/* <div className="mt-2">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <input
-                type="text"
-                {...register("name", { required: true })}
-                placeholder="Enter Name...."
-                className="border-2"
-              />
-              <br />
-              <input
-                type="text"
-                {...register("address", { required: true })}
-                placeholder="Address...."
-                className="border-2"
-              />
-              <br />
-              <input
-                type="text"
-                {...register("phone", { required: true })}
-                placeholder="Phone Number...."
-                className="border-2"
-              />
-            </form>
-          </div> */}
 
           {/* ======================================= */}
           {cart.length ? (

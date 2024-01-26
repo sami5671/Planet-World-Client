@@ -43,6 +43,13 @@ const CheckOutForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // ----------------------------------------------------------------
+    const form = event.target;
+    const billingAddress = form.billingAddress.value;
+    const shippingAddress = form.shippingAddress.value;
+    const phone = form.phone.value;
+    // ----------------------------------------------------------------
+
     if (!stripe || !elements) {
       return;
     }
@@ -92,12 +99,16 @@ const CheckOutForm = () => {
           email: user.email,
           name: user.displayName,
           photo: user.photoURL,
+          billingAddress: billingAddress,
+          shippingAddress: shippingAddress,
+          phone: phone,
           transactionId: paymentIntent.id,
           price: totalPrice,
           date: new Date(),
           status: "success",
           cartIds: cart.map((item) => item._id),
-          treeIds: cart.map((item) => item.treeId),
+          // treeIds: cart.map((item) => item.treeId),
+          orderCart: [...cart],
         };
         console.log(payment);
         const res = await axiosSecure.post("/payments", payment);
@@ -139,7 +150,7 @@ const CheckOutForm = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="lg:px-16">
-            <div className="border-2 bg-white rounded-lg px-2 py-8 lg:w-[705px] h-[100px]">
+            <div className="border-2 border-lime-700 shadow-md shadow-white bg-white rounded-lg px-2 py-8 lg:w-[705px] h-[350px]">
               <CardElement
                 options={{
                   style: {
@@ -156,17 +167,55 @@ const CheckOutForm = () => {
                   },
                 }}
               />
+              <h1 className="text-lime-600 mt-6 font-bold underline">
+                Other Billing Details
+              </h1>
+              <div className="mt-2 text-lime-900 font-bold">
+                <label>Billing Address: </label>
+                <input
+                  type="text"
+                  name="billingAddress"
+                  placeholder="Billing Address...."
+                  className="border-2 border-lime-700"
+                />
+                <br />
+                <br />
+                <label>Delivery Address: </label>
+                <input
+                  type="text"
+                  name="shippingAddress"
+                  placeholder="shippingAddress...."
+                  className="border-2 border-lime-700"
+                />
+                <br />
+                <br />
+
+                <label>Customer Phone: </label>
+                <input
+                  type="phone"
+                  name="phone"
+                  placeholder="Phone Number...."
+                  className="border-2 border-lime-700"
+                />
+                <div className="lg:ml-12 mt-6 flex items-center justify-end">
+                  <h2 className="text-red-500">{error}</h2>
+                  <h2 className="">
+                    <span className="font-bold text-lime-700">
+                      Your TransactionID:
+                    </span>
+                    <span className="text-purple-600"> {transactionId}</span>
+                  </h2>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="lg:ml-12 flex items-center justify-end">
-            <h2 className="text-red-500">{error}</h2>
-            <h2 className="">
-              <span className="font-bold text-lime-500">
-                Your TransactionID:
-              </span>
-              {transactionId}
-            </h2>
-          </div>
+          {/* -------form ----- */}
+
+          {/* ------------ */}
+
+          {/* form info */}
+
+          {/* form info */}
           <div className="mt-12 lg:ml-12 flex items-center justify-end">
             <button
               className="bg-white mb-44 text-black font-bold py-2 px-6 rounded-md transition duration-300 ease-in-out hover:bg-lime-400 hover:text-white"
