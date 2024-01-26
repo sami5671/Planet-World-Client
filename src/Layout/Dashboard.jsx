@@ -18,6 +18,7 @@ import { IoBagAddSharp } from "react-icons/io5";
 import { RiReplay5Fill } from "react-icons/ri";
 import { FaHome } from "react-icons/fa";
 import { FaCartShopping, FaCcVisa, FaTree } from "react-icons/fa6";
+import UseOrder from "../Hooks/UseOrder";
 
 const Dashboard = () => {
   // =================================================================
@@ -26,6 +27,7 @@ const Dashboard = () => {
   const [users] = UseUser();
   const [products] = UseProduct();
   const [cart] = UseCart();
+  const [orders] = UseOrder();
 
   const handleLogOut = () => {
     logOut()
@@ -116,6 +118,9 @@ const Dashboard = () => {
                       <span className="text-white flex items-center">
                         <IoBagAddSharp />
                         Order Info
+                        <span className="text-red-500 font-bold">
+                          ({orders.length})
+                        </span>
                       </span>
                     </li>
                   </NavLink>
@@ -162,6 +167,14 @@ const Dashboard = () => {
                         <span className="text-red-500 font-bold">
                           ({cart.length})
                         </span>
+                      </span>
+                    </li>
+                  </NavLink>
+                  <NavLink to="/dashboard/paymentInfoUser">
+                    <li className="mb-2">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <FaCcVisa className="text-xl" />
+                        Payment Info
                       </span>
                     </li>
                   </NavLink>

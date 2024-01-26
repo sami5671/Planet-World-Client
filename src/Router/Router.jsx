@@ -26,6 +26,7 @@ import AddTrendingProduct from "../Pages/Admin/AddTrendingProduct";
 import PaymentInfoUser from "../Pages/User/PaymentInfoUser";
 import UserCart from "../Pages/User/UserCart";
 import Payment from "../Pages/Payment/Payment";
+import OrderDetails from "../Pages/Admin/OrderDetails";
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +56,6 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/product/${params.id}`),
       },
-
       {
         path: "/login",
         element: <Login></Login>,
@@ -137,6 +137,12 @@ export const router = createBrowserRouter([
       {
         path: "orderInfo",
         element: <OrderInfo></OrderInfo>,
+      },
+      {
+        path: "orderDetails/:id",
+        element: <OrderDetails></OrderDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/payments/${params.id}`),
       },
       {
         path: "messageSupportAdmin",
