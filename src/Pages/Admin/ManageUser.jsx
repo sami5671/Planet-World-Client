@@ -9,11 +9,13 @@ import { AiFillMediumCircle } from "react-icons/ai";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
+import UseAuth from "../../Hooks/UseAuth";
 
 const ManageUser = () => {
   //  =================================================================
-
+  const { user } = UseAuth();
   const [users, refetch] = UseUser();
+  // console.log(users);
   const [searchQuery, setSearchQuery] = useState("");
   const axiosSecure = useAxiosSecure();
   // console.log(users);

@@ -42,7 +42,6 @@ const CheckOutForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     // ----------------------------------------------------------------
     const form = event.target;
     const billingAddress = form.billingAddress.value;
