@@ -11,7 +11,7 @@ const OrderDetails = () => {
   // =================================================================
   const orderDetails = useLoaderData();
   const axiosSecure = useAxiosSecure();
-
+  const navigate = useNavigate();
   console.log(orderDetails);
 
   const {
@@ -53,6 +53,7 @@ const OrderDetails = () => {
               icon: "success",
             });
             // refetch();
+            navigate("/dashboard/orderInfo");
           }
         });
       }
@@ -124,7 +125,7 @@ const OrderDetails = () => {
             <p className="mt-2">
               <button
                 onClick={() => handleDeleteOrder(_id)}
-                className="bg-red-700 px-2 hover:bg-red-400"
+                className="bg-red-700 px-2 hover:bg-red-400 py-1 font-bold rounded-md"
               >
                 Cancel Order
               </button>

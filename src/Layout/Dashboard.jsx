@@ -170,6 +170,14 @@ const Dashboard = () => {
                       </span>
                     </li>
                   </NavLink>
+                  <NavLink to="/dashboard/shippingInfoUser">
+                    <li className="mb-2">
+                      <span className="text-white flex items-center hover:text-lime-500">
+                        <MdLocalShipping className="text-xl" />
+                        Shipping Info
+                      </span>
+                    </li>
+                  </NavLink>
                   <NavLink to="/dashboard/paymentInfoUser">
                     <li className="mb-2">
                       <span className="text-white flex items-center hover:text-lime-500">
