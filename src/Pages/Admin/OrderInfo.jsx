@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import UseOrder from "../../Hooks/UseOrder";
 import { useState } from "react";
 import { FaSearchengin } from "react-icons/fa6";
@@ -10,13 +10,14 @@ import { LuPackageOpen, LuRemoveFormatting } from "react-icons/lu";
 import { FcProcess, FcShipped } from "react-icons/fc";
 import { FaShippingFast } from "react-icons/fa";
 import SectionTitle6 from "./../../Components/SectionTitle6";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const OrderInfo = () => {
   // =================================================================
-
+  const axiosSecure = useAxiosSecure();
   const [orders, refetch] = UseOrder();
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(orders);
+  // console.log(orders);
   // ======================for searching functionality===========================================
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -27,6 +28,19 @@ const OrderInfo = () => {
       order.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
   //   =================================================================
+
+  // =================================================================
+
+  // =================================================================
+  const handleProcessing = (item) => {
+    axiosSecure.patch(`/payments/orderStatus/${item._id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast("Is Now On Processing");
+        refetch();
+      }
+    });
+  };
   // =================================================================================================
   return (
     <section className="text-white bg-slate-900">
@@ -114,7 +128,7 @@ const OrderInfo = () => {
                 {/* trending  info */}
 
                 <td>
-                  {item.trending === "true" ? (
+                  {item.orderStatus === "processing" ? (
                     <>
                       <button className="px-4 py-3 rounded-lg">
                         <BsArrowUpRightSquareFill className="text-green-500 text-xl" />
@@ -122,7 +136,7 @@ const OrderInfo = () => {
                     </>
                   ) : (
                     <button
-                      // onClick={() => handleMakeTrending(item)}
+                      onClick={() => handleProcessing(item)}
                       className="px-4 py-3 rounded-lg bg-white"
                     >
                       <FcProcess className="text-white text-xl" />
