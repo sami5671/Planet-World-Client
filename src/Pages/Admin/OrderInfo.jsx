@@ -5,8 +5,7 @@ import { FaSearchengin } from "react-icons/fa6";
 import { IoInformationCircle } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { BsArrowUpRightSquareFill } from "react-icons/bs";
-import { GiPineTree } from "react-icons/gi";
-import { LuPackageOpen, LuRemoveFormatting } from "react-icons/lu";
+import { LuPackageOpen } from "react-icons/lu";
 import { FcProcess, FcShipped } from "react-icons/fc";
 import { FaShippingFast } from "react-icons/fa";
 import SectionTitle6 from "./../../Components/SectionTitle6";
@@ -33,7 +32,34 @@ const OrderInfo = () => {
 
   // =================================================================
   const handleProcessing = (item) => {
-    axiosSecure.patch(`/payments/orderStatus/${item._id}`).then((res) => {
+    axiosSecure.patch(`/payments/orderProcessing/${item._id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast("Is Now On Processing");
+        refetch();
+      }
+    });
+  };
+  const handlePacking = (item) => {
+    axiosSecure.patch(`/payments/orderPacking/${item._id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast("Is Now On Processing");
+        refetch();
+      }
+    });
+  };
+  const handleShipping = (item) => {
+    axiosSecure.patch(`/payments/orderShipping/${item._id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast("Is Now On Processing");
+        refetch();
+      }
+    });
+  };
+  const handleDelivered = (item) => {
+    axiosSecure.patch(`/payments/orderDelivered/${item._id}`).then((res) => {
       // console.log(res.data);
       if (res.data.modifiedCount > 0) {
         toast("Is Now On Processing");
@@ -146,7 +172,7 @@ const OrderInfo = () => {
 
                 {/* packing */}
                 <td>
-                  {item.trending === "true" ? (
+                  {item.orderStatus === "packing" ? (
                     <>
                       <button className="px-4 py-3 rounded-lg">
                         <BsArrowUpRightSquareFill className="text-green-500 text-xl" />
@@ -154,7 +180,7 @@ const OrderInfo = () => {
                     </>
                   ) : (
                     <button
-                      // onClick={() => handleMakeTrending(item)}
+                      onClick={() => handlePacking(item)}
                       className="px-4 py-3 rounded-lg bg-white"
                     >
                       <LuPackageOpen className="text-black text-xl" />
@@ -163,7 +189,7 @@ const OrderInfo = () => {
                 </td>
                 {/* shipping */}
                 <td>
-                  {item.trending === "true" ? (
+                  {item.orderStatus === "shipping" ? (
                     <>
                       <button className="px-4 py-3 rounded-lg">
                         <BsArrowUpRightSquareFill className="text-green-500 text-xl" />
@@ -171,7 +197,7 @@ const OrderInfo = () => {
                     </>
                   ) : (
                     <button
-                      // onClick={() => handleMakeTrending(item)}
+                      onClick={() => handleShipping(item)}
                       className="px-4 py-3 rounded-lg bg-white"
                     >
                       <FaShippingFast className="text-black text-xl" />
@@ -180,7 +206,7 @@ const OrderInfo = () => {
                 </td>
                 {/* delivered */}
                 <td>
-                  {item.trending === "true" ? (
+                  {item.orderStatus === "delivered" ? (
                     <>
                       <button className="px-4 py-3 rounded-lg">
                         <FcShipped className="text-black text-xl" />
@@ -188,7 +214,7 @@ const OrderInfo = () => {
                     </>
                   ) : (
                     <button
-                      // onClick={() => handleMakeTrending(item)}
+                      onClick={() => handleDelivered(item)}
                       className="px-4 py-3 rounded-lg bg-white"
                     >
                       <FcShipped className=" text-xl" />

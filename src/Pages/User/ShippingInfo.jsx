@@ -9,15 +9,16 @@ import { FaHome, FaShippingFast } from "react-icons/fa";
 import Scrollbars from "react-custom-scrollbars-2";
 import UseShipping from "../../Hooks/UseShipping";
 import OrderDetailsCard from "../Admin/OrderDetailsCard";
+import "./CarAnimition.css";
 
 const ShippingInfo = () => {
   // =================================================================
   const [shipping = []] = UseShipping();
 
-  console.log(shipping);
   // Destructure specific properties from the first item in the array
   const { orderStatus, orderCart } = shipping[0] || {};
 
+  console.log(orderStatus, orderCart);
   // =================================================================
   return (
     <>
@@ -46,7 +47,11 @@ const ShippingInfo = () => {
           </p>
 
           {orderStatus === "processing" ? (
-            <p className="absolute -mt-12 lg:-mt-[75px]">
+            <p
+              className={`absolute -mt-12 lg:-mt-[75px] ${
+                window.innerWidth >= 1024 ? "animate-car" : ""
+              }`}
+            >
               <MdLocalShipping className="text-3xl lg:text-5xl text-lime-400 rounded-md" />
             </p>
           ) : (
@@ -64,7 +69,11 @@ const ShippingInfo = () => {
             </p>
           </p>
           {orderStatus === "packing" ? (
-            <p className="absolute -mt-12 lg:-mt-[75px]">
+            <p
+              className={`absolute -mt-12 lg:-mt-[75px] ${
+                window.innerWidth >= 1024 ? "animate-car" : ""
+              }`}
+            >
               <MdLocalShipping className="text-3xl lg:text-5xl text-lime-400 rounded-md" />
             </p>
           ) : (
@@ -81,7 +90,11 @@ const ShippingInfo = () => {
             </p>
           </p>
           {orderStatus === "shipping" ? (
-            <p className="absolute -mt-[50px] lg:-mt-[75px]">
+            <p
+              className={`absolute -mt-[50px] lg:-mt-[75px] ${
+                window.innerWidth >= 1024 ? "animate-car" : ""
+              }`}
+            >
               <FaShippingFast className="text-3xl lg:text-5xl text-lime-400 rounded-md" />
             </p>
           ) : (
@@ -118,10 +131,10 @@ const ShippingInfo = () => {
           <div className="bg-white shadow-2xl lg:w-[500px] lg:h-[395px]">
             <Scrollbars style={{ width: "100%", height: "380px" }}>
               <div>
-                {orderCart.map((items) => (
+                {orderCart?.map((item) => (
                   <OrderDetailsCard
-                    key={items._id}
-                    items={items}
+                    key={item._id}
+                    items={item}
                   ></OrderDetailsCard>
                 ))}
               </div>
