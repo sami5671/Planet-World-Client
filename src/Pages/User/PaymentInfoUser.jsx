@@ -1,4 +1,6 @@
 import { FaSearchengin } from "react-icons/fa";
+import { FaMapLocation } from "react-icons/fa6";
+import { RiUserLocationFill } from "react-icons/ri";
 import SectionTitle8 from "../../Components/SectionTitle8";
 import UsePaymentHistory from "../../Hooks/UsePaymentHistory";
 import { useState } from "react";
@@ -9,14 +11,30 @@ const PaymentInfoUser = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   console.log(PaymentHistory);
+  // ===========================date format======================================
+  const formatDate = (dateString) => {
+    // Create a new Date object from the ISO string
+    const date = new Date(dateString);
+
+    // Options for formatting the date
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+
+    // Format the date
+    return date.toLocaleDateString("en-US", options);
+  };
+
   // ======================for searching functionality===========================================
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
-  const filteredItems = PaymentHistory.filter(
-    (payment) =>
-      payment.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      payment.email.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredItems = PaymentHistory.filter((payment) =>
+    formatDate(payment.date).toLowerCase().includes(searchQuery)
   );
   //   =================================================================
 
@@ -40,29 +58,31 @@ const PaymentInfoUser = () => {
       </div>
       {/* for search */}
 
-      {/* <div className="overflow-x-auto">
+      <div className="overflow-x-auto">
         <h1 className="ml-4 font-bold hover:underline">
-          Total: {PaymentHistory.length}
+          Total Payment: {PaymentHistory.length}
         </h1>
         <table className="table ">
           <thead className="text-white text-[16px]">
             <tr>
-              <th>No</th>
+              <th>No.</th>
+              <th>Date</th>
+              <th>Transaction ID</th>
               <th>Orderer Name</th>
               <th>Email</th>
               <th>Image</th>
               <th>payment</th>
-              <th>Order Details</th>
-              <th>Processing</th>
-              <th>Packing</th>
-              <th>Shipping</th>
-              <th>Delivered</th>
+              <th>Order items</th>
+              <th>Billing Address</th>
+              <th>Shipping Address</th>
             </tr>
           </thead>
           <tbody>
             {filteredItems.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1}</td>
+                <td>{formatDate(item.date)}</td>
+                <td className="text-[12px]">{item.transactionId}</td>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>
@@ -80,11 +100,20 @@ const PaymentInfoUser = () => {
                     </span>
                   </span>
                 </td>
+                <td></td>
+                <td>
+                  {item.billingAddress}
+                  <FaMapLocation />
+                </td>
+                <td className="flex items-center gap-2">
+                  {item.shippingAddress}
+                  <RiUserLocationFill />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div> */}
+      </div>
     </section>
   );
 };
