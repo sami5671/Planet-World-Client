@@ -1,9 +1,12 @@
 import { FaSearchengin } from "react-icons/fa";
+import { GiBonsaiTree } from "react-icons/gi";
 import { FaMapLocation } from "react-icons/fa6";
 import { RiUserLocationFill } from "react-icons/ri";
 import SectionTitle8 from "../../Components/SectionTitle8";
 import UsePaymentHistory from "../../Hooks/UsePaymentHistory";
 import { useState } from "react";
+import ModalCart from "./ModalCart";
+import Scrollbars from "react-custom-scrollbars-2";
 
 const PaymentInfoUser = () => {
   // =================================================================
@@ -100,7 +103,50 @@ const PaymentInfoUser = () => {
                     </span>
                   </span>
                 </td>
-                <td></td>
+                <td className="lg:text-4xl">
+                  <span className="flex justify-center hover:text-green-600 cursor-pointer">
+                    <button
+                      className=""
+                      onClick={() =>
+                        document.getElementById(`my_modal_${index}`).showModal()
+                      }
+                    >
+                      <GiBonsaiTree />
+                    </button>
+                    <dialog
+                      id={`my_modal_${index}`}
+                      className="modal modal-bottom sm:modal-middle"
+                    >
+                      <div className="modal-box">
+                        <h3 className="font-bold text-lg">
+                          <span>Total Ordered Item: </span>
+                          {item?.orderCart?.length}
+                        </h3>
+                        <div className="bg-white shadow-2xl mb-12 lg:w-[440px] lg:h-[500px]">
+                          <Scrollbars
+                            style={{ width: "100%", height: "380px" }}
+                          >
+                            <div>
+                              {item?.orderCart?.map((orderItem) => (
+                                <ModalCart
+                                  key={orderItem._id}
+                                  orderItem={orderItem}
+                                />
+                              ))}
+                            </div>
+                          </Scrollbars>
+                        </div>
+                        <div className="modal-action">
+                          <form method="dialog">
+                            <button className="border-2 px-8 text-white font-bold text-xl bg-green-400 hover:bg-red-600">
+                              <span className="">Close</span>
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </dialog>
+                  </span>
+                </td>
                 <td>
                   {item.billingAddress}
                   <FaMapLocation />
