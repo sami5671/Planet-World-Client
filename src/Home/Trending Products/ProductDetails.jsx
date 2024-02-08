@@ -47,6 +47,24 @@ const ProductDetails = () => {
     totalPrice += parseFloat(item.newPrice);
   });
 
+  // const [finalPrice, setFinalPrice] = useState(totalPrice);
+
+  // const handleApplyVoucher = (event) => {
+  //   const code = document.getElementById("voucherInput").value;
+  //   if (code === "R45") {
+  //     const newFinalPrice = Number(totalPrice) - 5;
+  //     setFinalPrice(newFinalPrice);
+  //     setButtonDisabled(true);
+  //   } else {
+  //     Swal.fire({
+  //       title: "Opps Wrong Code Entered",
+  //       text: "Wrong Voucher Code",
+  //       icon: "question",
+  //     });
+  //     document.getElementById("voucherInput").value = "";
+  //   }
+  // };
+
   // =================================================================
   const handleAddToCart = (tree) => {
     if (user && user.email) {
@@ -61,7 +79,7 @@ const ProductDetails = () => {
         img1,
       };
       axiosSecure.post("/carts", cartItem).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.insertedId) {
           // refetch the cart
           refetch();
@@ -190,7 +208,7 @@ const ProductDetails = () => {
 
         {/* cart calculation  section*/}
         {/* order Summary */}
-        <div className="bg-slate-100 mt-4 lg:mt-0 lg:ml-12 lg:w-[350px] rounded-2xl px-2 lg:px-4 text-slate-500 mb-12 py-4">
+        <div className="bg-slate-100 mt-4 lg:mt-3 lg:ml-12 lg:w-[350px] rounded-2xl px-2 lg:px-4 text-slate-500 mb-12 py-4">
           <h1 className="text-2xl text-lime-500 font-bold mb-2">
             Order Summary
           </h1>

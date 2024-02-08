@@ -35,7 +35,7 @@ const OrderInfo = () => {
     axiosSecure.patch(`/payments/orderProcessing/${item._id}`).then((res) => {
       // console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        toast("Is Now On Processing");
+        toast("Product Is On Processing");
         refetch();
       }
     });
@@ -44,7 +44,7 @@ const OrderInfo = () => {
     axiosSecure.patch(`/payments/orderPacking/${item._id}`).then((res) => {
       // console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        toast("Is Now On Processing");
+        toast("Product Is On Packing");
         refetch();
       }
     });
@@ -53,7 +53,7 @@ const OrderInfo = () => {
     axiosSecure.patch(`/payments/orderShipping/${item._id}`).then((res) => {
       // console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        toast("Is Now On Processing");
+        toast("Product Is On Shipping");
         refetch();
       }
     });
@@ -62,7 +62,7 @@ const OrderInfo = () => {
     axiosSecure.patch(`/payments/orderDelivered/${item._id}`).then((res) => {
       // console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        toast("Is Now On Processing");
+        toast("Product Is On Delivered");
         refetch();
       }
     });
