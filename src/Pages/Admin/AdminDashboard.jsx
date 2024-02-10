@@ -8,18 +8,30 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { FaTree, FaUsers } from "react-icons/fa6";
+import { FaMoneyBillTrendUp, FaTree, FaUsers } from "react-icons/fa6";
 import { BiSolidMessageRoundedDetail } from "react-icons/bi";
 import UseUser from "../../Hooks/UseUser";
 import UseAdmin from "../../Hooks/UseAdmin";
 import UseCart from "../../Hooks/UseCart";
 import UseProduct from "../../Hooks/UseProduct";
+import UseRevenueCalculation from "../../Hooks/UseRevenueCalculation";
 
 const AdminDashboard = () => {
   const [users] = UseUser();
+  const [revenueCalculation] = UseRevenueCalculation();
   const [isAdmin] = UseAdmin();
   const [cart] = UseCart();
   const [products] = UseProduct();
+
+  // =====================Revenue calculation============================================
+  // console.log(revenueCalculation);
+  let totalRevenue = 0;
+
+  revenueCalculation.forEach((item) => {
+    totalRevenue += parseFloat(item.price);
+  });
+
+  // =================================================================
 
   const data = [
     { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
@@ -96,9 +108,9 @@ const AdminDashboard = () => {
             </div>
             <div className="bg-blue-600 rounded-lg lg:w-[170px] lg:h-[80px] py-4 px-2 shadow-md shadow-white">
               <span className="flex items-center gap-2">
-                Products <FaTree />
+                Revenue <FaMoneyBillTrendUp />
               </span>
-              ({products.length})
+              $ {totalRevenue}
             </div>
             <div className="bg-red-700 rounded-lg lg:w-[170px] lg:h-[80px] py-4 px-2 shadow-md shadow-white">
               <span className="flex items-center gap-2">

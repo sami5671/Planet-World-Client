@@ -1,4 +1,4 @@
-import { FaSearchengin } from "react-icons/fa";
+import { FaSearchengin, FaTrash } from "react-icons/fa";
 import { GiBonsaiTree } from "react-icons/gi";
 import { FaMapLocation } from "react-icons/fa6";
 import { RiUserLocationFill } from "react-icons/ri";
@@ -7,11 +7,14 @@ import UsePaymentHistory from "../../Hooks/UsePaymentHistory";
 import { useState } from "react";
 import ModalCart from "./ModalCart";
 import Scrollbars from "react-custom-scrollbars-2";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const PaymentInfoUser = () => {
   // =================================================================
   const [PaymentHistory, refetch] = UsePaymentHistory();
   const [searchQuery, setSearchQuery] = useState("");
+  const axiosSecure = useAxiosSecure();
 
   console.log(PaymentHistory);
   // ===========================date format======================================
@@ -39,8 +42,34 @@ const PaymentInfoUser = () => {
   const filteredItems = PaymentHistory.filter((payment) =>
     formatDate(payment.date).toLowerCase().includes(searchQuery)
   );
-  //   =================================================================
+  //   =========================Delete payment info========================================
+  const handleDeletePayment = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/deletePaymentHistory/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            // console.log(res);
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
 
+  // =================================================================
   return (
     <section className="text-white bg-slate-900">
       <div className="mb-24">hello</div>
@@ -50,7 +79,7 @@ const PaymentInfoUser = () => {
         <div className="relative">
           <input
             type="text"
-            placeholder="Name || Email"
+            placeholder="Search By Date"
             className="lg:w-[420px] border-2 rounded-lg border-lime-400 text-xl font-bold text-lime-600 h-[35px] pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent transition-all duration-300"
             onChange={handleInputChange}
           />
@@ -78,6 +107,7 @@ const PaymentInfoUser = () => {
               <th>Order items</th>
               <th>Billing Address</th>
               <th>Shipping Address</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +133,7 @@ const PaymentInfoUser = () => {
                     </span>
                   </span>
                 </td>
-                <td className="lg:text-4xl">
+                <td className="lg:text-4xl ">
                   <span className="flex justify-center hover:text-green-600 cursor-pointer">
                     <button
                       className=""
@@ -154,6 +184,15 @@ const PaymentInfoUser = () => {
                 <td className="flex items-center gap-2">
                   {item.shippingAddress}
                   <RiUserLocationFill />
+                </td>
+                <td>
+                  <p className="mt-2">
+                    <button onClick={() => handleDeletePayment(item._id)}>
+                      <span className="text-2xl text-red-600 hover:text-orange-500">
+                        <FaTrash />
+                      </span>
+                    </button>
+                  </p>
                 </td>
               </tr>
             ))}
