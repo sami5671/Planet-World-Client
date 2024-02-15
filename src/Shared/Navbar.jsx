@@ -41,7 +41,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="font-Rancho menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box border-2 border-lime-300 w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box border-2 border-lime-300 w-52"
           >
             <Link to="/">
               <li>
@@ -79,7 +79,7 @@ const Navbar = () => {
         </div>
         {/*  */}
         <div className="hidden lg:block">
-          <ul className="flex gap-6 px-8  font-Rancho text-2xl text-lime-600 ">
+          <ul className="flex gap-6 px-8 text-xl text-lime-600 ">
             <Link to="/">
               <li className="hover:underline hover:text-lime-400">
                 <a>Home</a>

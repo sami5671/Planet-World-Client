@@ -10,6 +10,8 @@ import { FcProcess, FcShipped } from "react-icons/fc";
 import { FaShippingFast } from "react-icons/fa";
 import SectionTitle6 from "./../../Components/SectionTitle6";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { GiConfirmed } from "react-icons/gi";
+import Swal from "sweetalert2";
 
 const OrderInfo = () => {
   // =================================================================
@@ -67,6 +69,9 @@ const OrderInfo = () => {
       }
     });
   };
+
+  // ==========================confirm shipped info=======================================
+
   // =================================================================================================
   return (
     <section className="text-white bg-slate-900">

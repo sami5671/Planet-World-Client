@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState } from "react";
 import {
   PieChart,
   Pie,
@@ -10,6 +10,7 @@ import {
 } from "recharts";
 
 import { LineChart, Line, CartesianGrid } from "recharts";
+import UseProduct from "../../Hooks/UseProduct";
 
 const Statistics = () => {
   // ========================Line Chart=========================================
@@ -38,13 +39,52 @@ const Statistics = () => {
   );
 
   // ==============================Pie chart===================================
+  const [products] = UseProduct();
+
+  let palm = 0;
+  products.forEach((item) => {
+    if (item?.category?.toLowerCase() === "palm") {
+      palm++;
+    }
+  });
+
+  let indoor = 0;
+  products.forEach((item) => {
+    if (item?.category?.toLowerCase() === "indoor") {
+      indoor++;
+    }
+  });
+
+  let outdoor = 0;
+  products.forEach((item) => {
+    if (item?.category?.toLowerCase() === "outdoor") {
+      outdoor++;
+    }
+  });
+
+  let christmas = 0;
+  products.forEach((item) => {
+    if (item?.category?.toLowerCase() === "christmas") {
+      christmas++;
+    }
+  });
+
+  let cactus = 0;
+  products.forEach((item) => {
+    if (item?.category?.toLowerCase() === "cactus") {
+      cactus++;
+    }
+  });
+
+  // console.log(christmas);
+
   // Pie Chart data and colors
   const Piedata = [
-    { name: "Indoor", value: 400 },
-    { name: "Outdoor", value: 300 },
-    { name: "Palm", value: 500 },
-    { name: "Christmas", value: 200 },
-    { name: "Cactus", value: 200 },
+    { name: "Indoor", value: indoor },
+    { name: "Outdoor", value: outdoor },
+    { name: "Palm", value: palm },
+    { name: "Christmas", value: christmas },
+    { name: "Cactus", value: cactus },
   ];
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A020F0"];

@@ -12,7 +12,7 @@ const OrderDetails = () => {
   const orderDetails = useLoaderData();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  console.log(orderDetails);
+  // console.log(orderDetails);
 
   const {
     _id,
@@ -58,6 +58,30 @@ const OrderDetails = () => {
         });
       }
     });
+  };
+
+  // =========================Post in the shipping info========================================
+
+  const shippingConfirm = (id) => {
+    const shippingConfirmed = {
+      billingAddress: billingAddress,
+      email: email,
+      name: name,
+      orderCart: orderCart,
+      phone: phone,
+      photo: photo,
+      price: price,
+      shippingAddress: shippingAddress,
+      status: status,
+      transactionId: transactionId,
+      confirmShipped: true,
+      date: new Date(),
+    };
+
+    const res = axiosSecure.post("/shippingConfirmed", shippingConfirmed);
+    if (res?.data?.insertedId) {
+      Swal.fire("The Product has been added successfully");
+    }
   };
 
   // =================================================================
@@ -127,7 +151,13 @@ const OrderDetails = () => {
                 onClick={() => handleDeleteOrder(_id)}
                 className="bg-red-700 px-2 hover:bg-red-400 py-1 font-bold rounded-md"
               >
-                Cancel Order
+                Remove From Order Queue
+              </button>
+              <button
+                onClick={() => shippingConfirm(_id)}
+                className="bg-lime-700 px-2 hover:bg-white hover:text-black py-1 font-bold rounded-md ml-2"
+              >
+                Confirm Shipped
               </button>
             </p>
           </div>

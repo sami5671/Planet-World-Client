@@ -48,11 +48,10 @@ const AdminDashboard = () => {
             <span className="flex items-center gap-2">
               Messages <BiSolidMessageRoundedDetail />
             </span>
-            ({products.length})
+            (0)
           </div>
         </div>
       </div>
-
       <Statistics />
       <div className="py-12 text-slate-950"></div>
     </section>

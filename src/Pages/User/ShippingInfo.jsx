@@ -5,20 +5,78 @@ import {
   MdOutlineProductionQuantityLimits,
 } from "react-icons/md";
 import { LuPackageOpen } from "react-icons/lu";
-import { FaHome, FaShippingFast } from "react-icons/fa";
+import { FaHome, FaShippingFast, FaTrash } from "react-icons/fa";
 import Scrollbars from "react-custom-scrollbars-2";
 import UseShipping from "../../Hooks/UseShipping";
 import OrderDetailsCard from "../Admin/OrderDetailsCard";
 import "./CarAnimition.css";
+import UseShippedProductUserInfo from "../../Hooks/UseShippedProductUserInfo";
+import { GiBonsaiTree } from "react-icons/gi";
+import ModalCart from "./ModalCart";
+import { FaMapLocation } from "react-icons/fa6";
+import { RiUserLocationFill } from "react-icons/ri";
+import SectionTitle6 from "../../Components/SectionTitle6";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const ShippingInfo = () => {
+  // =================================================================
+  const axiosPublic = useAxiosPublic();
   // =================================================================
   const [shipping = []] = UseShipping();
 
   // Destructure specific properties from the first item in the array
   const { orderStatus, orderCart } = shipping[0] || {};
 
-  console.log(orderStatus, orderCart);
+  // console.log(orderStatus, orderCart);
+  // =================================================================
+  const [shippingConfirm, refetch] = UseShippedProductUserInfo();
+  console.log(shippingConfirm);
+  // ===========================date format======================================
+  const formatDate = (dateString) => {
+    // Create a new Date object from the ISO string
+    const date = new Date(dateString);
+
+    // Options for formatting the date
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+
+    // Format the date
+    return date.toLocaleDateString("en-US", options);
+  };
+
+  //   =========================Delete payment info========================================
+  const handleDeletePayment = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/deleteShippedHistory/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            // console.log(res);
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
   // =================================================================
   return (
     <>
@@ -142,6 +200,121 @@ const ShippingInfo = () => {
           </div>
         </section>
         {/* product info */}
+
+        {/* shipping info previous and recent */}
+        <div>
+          <SectionTitle6 heading={"Previous Order Info"}></SectionTitle6>
+        </div>
+        <div className="overflow-x-auto text-white">
+          <h1 className="ml-4 text-white font-bold hover:underline">
+            Total Shipped: {shippingConfirm.length}
+          </h1>
+          <table className="table ">
+            <thead className="text-white text-[16px]">
+              <tr>
+                <th>No.</th>
+                <th>Date</th>
+                <th>Orderer Name</th>
+                <th>Email</th>
+                <th>Image</th>
+                <th>payment</th>
+                <th>Order items</th>
+                <th>Billing Address</th>
+                <th>Shipping Address</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shippingConfirm.map((item, index) => (
+                <tr key={item._id}>
+                  <td>{index + 1}</td>
+                  <td>{formatDate(item.date)}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>
+                    <div className="avatar">
+                      <div className="rounded-full w-8 h-8">
+                        <img src={item.photo} alt="img" />
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span className="text-[18px] font-bold">${item.price}</span>
+                    <span className="ml-2">
+                      <span className=" text-green-700 font-bold">
+                        {item.status}
+                      </span>
+                    </span>
+                  </td>
+                  <td className="lg:text-4xl ">
+                    <span className="flex justify-center hover:text-green-600 cursor-pointer">
+                      <button
+                        className=""
+                        onClick={() =>
+                          document
+                            .getElementById(`my_modal_${index}`)
+                            .showModal()
+                        }
+                      >
+                        <GiBonsaiTree />
+                      </button>
+                      <dialog
+                        id={`my_modal_${index}`}
+                        className="modal modal-bottom sm:modal-middle"
+                      >
+                        <div className="modal-box">
+                          <h3 className="font-bold text-lg">
+                            <span>Total Ordered Item: </span>
+                            {item?.orderCart?.length}
+                          </h3>
+                          <div className="bg-white shadow-2xl mb-12 lg:w-[440px] lg:h-[500px]">
+                            <Scrollbars
+                              style={{ width: "100%", height: "380px" }}
+                            >
+                              <div>
+                                {item?.orderCart?.map((orderItem) => (
+                                  <ModalCart
+                                    key={orderItem._id}
+                                    orderItem={orderItem}
+                                  />
+                                ))}
+                              </div>
+                            </Scrollbars>
+                          </div>
+                          <div className="modal-action">
+                            <form method="dialog">
+                              <button className="border-2 px-8 text-white font-bold text-xl bg-green-400 hover:bg-red-600">
+                                <span className="">Close</span>
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </dialog>
+                    </span>
+                  </td>
+                  <td>
+                    {item.billingAddress}
+                    <FaMapLocation />
+                  </td>
+                  <td className="flex items-center gap-2">
+                    {item.shippingAddress}
+                    <RiUserLocationFill />
+                  </td>
+                  <td>
+                    <p className="mt-2">
+                      <button onClick={() => handleDeletePayment(item._id)}>
+                        <span className="text-2xl text-red-600 hover:text-orange-500">
+                          <FaTrash />
+                        </span>
+                      </button>
+                    </p>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* shipping info previous and recent */}
 
         <div className="text-slate-900 mt-12">
           <h1>hello</h1>

@@ -16,7 +16,7 @@ const PaymentInfoUser = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const axiosSecure = useAxiosSecure();
 
-  console.log(PaymentHistory);
+  // console.log(PaymentHistory);
   // ===========================date format======================================
   const formatDate = (dateString) => {
     // Create a new Date object from the ISO string
@@ -43,31 +43,31 @@ const PaymentInfoUser = () => {
     formatDate(payment.date).toLowerCase().includes(searchQuery)
   );
   //   =========================Delete payment info========================================
-  const handleDeletePayment = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/deletePaymentHistory/${id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            // console.log(res);
-            Swal.fire({
-              title: "Deleted!",
-              text: "User has been deleted.",
-              icon: "success",
-            });
-            refetch();
-          }
-        });
-      }
-    });
-  };
+  // const handleDeletePayment = (id) => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You won't be able to revert this!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "Yes, delete it!",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       axiosSecure.delete(`/deletePaymentHistory/${id}`).then((res) => {
+  //         if (res.data.deletedCount > 0) {
+  //           // console.log(res);
+  //           Swal.fire({
+  //             title: "Deleted!",
+  //             text: "User has been deleted.",
+  //             icon: "success",
+  //           });
+  //           refetch();
+  //         }
+  //       });
+  //     }
+  //   });
+  // };
 
   // =================================================================
   return (
@@ -107,7 +107,6 @@ const PaymentInfoUser = () => {
               <th>Order items</th>
               <th>Billing Address</th>
               <th>Shipping Address</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -185,7 +184,7 @@ const PaymentInfoUser = () => {
                   {item.shippingAddress}
                   <RiUserLocationFill />
                 </td>
-                <td>
+                {/* <td>
                   <p className="mt-2">
                     <button onClick={() => handleDeletePayment(item._id)}>
                       <span className="text-2xl text-red-600 hover:text-orange-500">
@@ -193,7 +192,7 @@ const PaymentInfoUser = () => {
                       </span>
                     </button>
                   </p>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

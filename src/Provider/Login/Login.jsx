@@ -1,5 +1,6 @@
 import { FaFacebookF } from "react-icons/fa";
 import UseAuth from "./../../Hooks/UseAuth";
+import { FaTree } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../../Components/GoogleLogin";
 import GithubLogin from "../../Components/GithubLogin";
@@ -33,24 +34,19 @@ const Login = () => {
     backgroundRepeat: "no-repeat",
     position: "relative",
   };
-  const overlayStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background: "rgba(0, 0, 0, 0.5)",
-  };
+
   // ====================Adding the background Style=================
   return (
     <>
       <div className="" style={bgStyle}>
-        {/* <div style={overlayStyle}></div> */}
         <div className="hero">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="flex-shrink-0 w-full rounded-2xl mt-16  shadow-2xl lg:px-28">
               {/* ============ */}
               <div className="px-8 mt-8">
+                <span className="flex justify-center text-lime-500 text-3xl lg:text-6xl">
+                  <FaTree />
+                </span>
                 <div>
                   <h1 className="text-2xl font-bold text-slate-500 mb-4">
                     Already have an account?
@@ -122,7 +118,7 @@ const Login = () => {
                 </div>
                 <div className="mt-6">
                   <input
-                    className="px-8 py-2 bg-blue-400 border-2 text-white hover:bg-white hover:text-black cursor-pointer"
+                    className="py-2 w-full bg-lime-300 border-2 font-bold text-black hover:bg-white hover:text-black cursor-pointer"
                     type="submit"
                     value="Login"
                   />
