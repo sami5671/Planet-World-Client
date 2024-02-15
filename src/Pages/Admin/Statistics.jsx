@@ -71,7 +71,7 @@ const Statistics = () => {
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
-        {`${name}: ${(percent * 100).toFixed(0)}%`} {/* Include name */}
+        {`${name}: ${(percent * 100).toFixed(0)}%`}
       </text>
     );
   };
@@ -99,7 +99,7 @@ const Statistics = () => {
   );
   //   =================================================================
   return (
-    <section>
+    <section className="">
       <div className="flex items-center flex-col lg:flex-row">
         <div className="">
           <div className="text-white px-16 mb-4 mt-2 font-bold text-2xl">

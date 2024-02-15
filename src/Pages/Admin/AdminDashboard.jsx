@@ -21,7 +21,6 @@ const AdminDashboard = () => {
   revenueCalculation.forEach((item) => {
     totalRevenue += parseFloat(item.price);
   });
-
   return (
     <section className="bg-slate-950">
       <div className="mb-32">hello</div>
@@ -53,7 +52,9 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+
       <Statistics />
+      <div className="py-12 text-slate-950"></div>
     </section>
   );
 };

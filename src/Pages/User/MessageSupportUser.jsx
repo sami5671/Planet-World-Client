@@ -1,7 +1,14 @@
 const MessageSupportUser = () => {
+  // =================================================================
+
+  // =================================================================
   return (
     <div>
-      <h1>user support message</h1>
+      <h1>Message Support</h1>
+
+      <div>
+        <form></form>
+      </div>
     </div>
   );
 };
