@@ -24,9 +24,9 @@ const AddTrendingProduct = () => {
   };
   const filteredItems = products.filter(
     (plant) =>
-      plant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.plantType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.category.toLowerCase().includes(searchQuery.toLowerCase())
+      plant?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      plant?.plantType?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      plant?.category?.toLowerCase().includes(searchQuery.toLowerCase())
   );
   //   =================================================================
   // ===========================Make trending  & remove trending ======================================

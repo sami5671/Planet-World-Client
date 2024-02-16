@@ -14,7 +14,7 @@ import UseShippedProductUserInfo from "../../Hooks/UseShippedProductUserInfo";
 import { GiBonsaiTree } from "react-icons/gi";
 import ModalCart from "./ModalCart";
 import { FaMapLocation } from "react-icons/fa6";
-import { RiUserLocationFill } from "react-icons/ri";
+import { RiDeleteBin5Fill, RiUserLocationFill } from "react-icons/ri";
 import SectionTitle6 from "../../Components/SectionTitle6";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
@@ -31,7 +31,7 @@ const ShippingInfo = () => {
   // console.log(orderStatus, orderCart);
   // =================================================================
   const [shippingConfirm, refetch] = UseShippedProductUserInfo();
-  console.log(shippingConfirm);
+  // console.log(shippingConfirm);
   // ===========================date format======================================
   const formatDate = (dateString) => {
     // Create a new Date object from the ISO string
@@ -221,7 +221,7 @@ const ShippingInfo = () => {
                 <th>Order items</th>
                 <th>Billing Address</th>
                 <th>Shipping Address</th>
-                <th>Remove</th>
+                <th>Erase</th>
               </tr>
             </thead>
             <tbody>
@@ -304,7 +304,7 @@ const ShippingInfo = () => {
                     <p className="mt-2">
                       <button onClick={() => handleDeletePayment(item._id)}>
                         <span className="text-2xl text-red-600 hover:text-orange-500">
-                          <FaTrash />
+                          <RiDeleteBin5Fill />
                         </span>
                       </button>
                     </p>

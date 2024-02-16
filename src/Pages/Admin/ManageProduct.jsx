@@ -25,9 +25,9 @@ const ManageProduct = () => {
 
   const filteredItems = products.filter(
     (plant) =>
-      plant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.plantType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.category.toLowerCase().includes(searchQuery.toLowerCase())
+      plant?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      plant?.plantType?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      plant?.category?.toLowerCase().includes(searchQuery.toLowerCase())
   );
   // ==================================for delete any product===============================================================
   const handleDeleteProduct = (id) => {

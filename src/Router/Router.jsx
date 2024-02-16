@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/${params.id}`),
+          fetch(`https://plant-world-server.vercel.app/product/${params.id}`),
       },
       {
         path: "/login",
@@ -142,7 +142,7 @@ export const router = createBrowserRouter([
         path: "orderDetails/:id",
         element: <OrderDetails></OrderDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/payments/${params.id}`),
+          fetch(`https://plant-world-server.vercel.app/payments/${params.id}`),
       },
       {
         path: "messageSupportAdmin",
@@ -156,7 +156,7 @@ export const router = createBrowserRouter([
         path: "updateProduct/:id",
         element: <UpdateProductInfo></UpdateProductInfo>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/${params.id}`),
+          fetch(`https://plant-world-server.vercel.app/product/${params.id}`),
       },
     ],
   },

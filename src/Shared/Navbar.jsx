@@ -5,6 +5,7 @@ import UseAuth from "./../Hooks/UseAuth";
 import { Link, NavLink } from "react-router-dom";
 import UseCart from "../Hooks/UseCart";
 import UseAdmin from "../Hooks/UseAdmin";
+import DarkMode from "./../DarkMode/DarkMode";
 
 const Navbar = () => {
   // =================================================================
@@ -107,12 +108,22 @@ const Navbar = () => {
                 </a>
               </li>
             </Link>
+            {/* <li className="hidden lg:block">
+              <span className=" text-white ">
+                <DarkMode className="-mt-12" />
+              </span>
+            </li> */}
           </ul>
         </div>
         {/*  */}
         <span className="block lg:hidden">
           <GiFruitTree className="text-2xl text-lime-600" />
         </span>
+        <p className="-mt-1 lg:-mt-0">
+          <span className="block text-white">
+            <DarkMode />
+          </span>
+        </p>
       </div>
 
       <div className="flex-1 gap-2">

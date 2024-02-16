@@ -22,9 +22,9 @@ const Products = () => {
 
   const filteredItems = allPlants.filter(
     (plant) =>
-      plant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.plantType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.category.toLowerCase().includes(searchQuery.toLowerCase())
+      plant?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      plant.plantType?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      plant.category?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

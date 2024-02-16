@@ -25,8 +25,8 @@ const OrderInfo = () => {
   };
   const filteredItems = orders.filter(
     (order) =>
-      order.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      order.email.toLowerCase().includes(searchQuery.toLowerCase())
+      order?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order?.email?.toLowerCase().includes(searchQuery.toLowerCase())
   );
   //   =================================================================
 

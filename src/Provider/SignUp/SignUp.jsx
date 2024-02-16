@@ -101,7 +101,7 @@ const SignUp = () => {
 
   // ====================Adding the background Style=================
   const bgStyle = {
-    backgroundImage: `url('/src/assets/banner.png')`,
+    backgroundImage: `url('https://i.ibb.co/g3RNsyL/banner.png')`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     position: "relative",
