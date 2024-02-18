@@ -126,7 +126,7 @@ const Dashboard = () => {
                   </NavLink>
                   <div className="divider">Support</div>
                   <hr />
-                  <NavLink to="/dashboard/messageSupportAdmin">
+                  <NavLink to="/dashboard/liveChat">
                     <li className="">
                       <span className="text-white flex items-center">
                         <MdMessage />
@@ -243,7 +243,7 @@ const Dashboard = () => {
                   </NavLink>
                   <div className="divider">Support</div>
                   <hr />
-                  <NavLink to="/dashboard/messageSupportUser">
+                  <NavLink to="/dashboard/liveChat">
                     <li className="">
                       <span className="text-white flex items-center hover:text-lime-500">
                         <MdMessage className="text-xl" />

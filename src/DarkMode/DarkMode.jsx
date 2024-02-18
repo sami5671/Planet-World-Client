@@ -1,4 +1,4 @@
-import { FaMoon, FaSun } from "react-icons/fa6";
+import { FaMoon } from "react-icons/fa6";
 import "./DarkMode.css";
 
 const DarkMode = () => {

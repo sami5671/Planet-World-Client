@@ -14,10 +14,8 @@ import AdminRoute from "./AdminRoute";
 import AdminDashboard from "../Pages/Admin/AdminDashboard";
 import ManageUser from "../Pages/Admin/ManageUser";
 import OrderInfo from "../Pages/Admin/OrderInfo";
-import MessageSupportAdmin from "../Pages/Admin/MessageSupportAdmin";
 import ProductReplaceAdmin from "../Pages/Admin/ProductReplaceAdmin";
 import Dashboard from "../Layout/Dashboard";
-import MessageSupportUser from "../Pages/User/MessageSupportUser";
 import ReplaceProductUser from "../Pages/User/ReplaceProductUser";
 import ManageProduct from "../Pages/Admin/ManageProduct";
 import UpdateProductInfo from "../Pages/Admin/UpdateProductInfo";
@@ -27,6 +25,7 @@ import PaymentInfoUser from "../Pages/User/PaymentInfoUser";
 import UserCart from "../Pages/User/UserCart";
 import Payment from "../Pages/Payment/Payment";
 import OrderDetails from "../Pages/Admin/OrderDetails";
+import JoinChatRoom from "../Pages/LiveChat/JoinChatRoom";
 
 export const router = createBrowserRouter([
   {
@@ -54,7 +53,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://plant-world-server.vercel.app/product/${params.id}`),
+          fetch(`http://localhost:5000/product/${params.id}`),
       },
       {
         path: "/login",
@@ -96,8 +95,8 @@ export const router = createBrowserRouter([
         element: <PaymentInfoUser></PaymentInfoUser>,
       },
       {
-        path: "messageSupportUser",
-        element: <MessageSupportUser></MessageSupportUser>,
+        path: "liveChat",
+        element: <JoinChatRoom></JoinChatRoom>,
       },
       {
         path: "replaceProductUser",
@@ -142,11 +141,11 @@ export const router = createBrowserRouter([
         path: "orderDetails/:id",
         element: <OrderDetails></OrderDetails>,
         loader: ({ params }) =>
-          fetch(`https://plant-world-server.vercel.app/payments/${params.id}`),
+          fetch(`http://localhost:5000/payments/${params.id}`),
       },
       {
-        path: "messageSupportAdmin",
-        element: <MessageSupportAdmin></MessageSupportAdmin>,
+        path: "liveChat",
+        element: <JoinChatRoom></JoinChatRoom>,
       },
       {
         path: "productReplaceAdmin",
@@ -156,7 +155,7 @@ export const router = createBrowserRouter([
         path: "updateProduct/:id",
         element: <UpdateProductInfo></UpdateProductInfo>,
         loader: ({ params }) =>
-          fetch(`https://plant-world-server.vercel.app/product/${params.id}`),
+          fetch(`http://localhost:5000/product/${params.id}`),
       },
     ],
   },
