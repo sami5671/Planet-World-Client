@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { GiPsychicWaves } from "react-icons/gi";
+import { FiSend } from "react-icons/fi";
+
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./LiveChat.css";
 
@@ -37,9 +40,14 @@ const ChatBox = ({ socket, userName, room }) => {
   //   =================================================================
   return (
     <>
-      <div className="chat-window">
-        <div className="chat-header">
-          <p>Live Chat</p>
+      <div className="chat-window mt-32 lg:w-[800px] h-[450px]">
+        <div className="h-[40px] bg-lime-500 font-bold rounded-sm ">
+          <p>
+            <span className="flex items-center gap-2 justify-center py-2 text-xl text-white">
+              Live Chatting
+              <GiPsychicWaves />
+            </span>
+          </p>
         </div>
         <div className="chat-body">
           <ScrollToBottom className="message-container">
@@ -67,7 +75,7 @@ const ChatBox = ({ socket, userName, room }) => {
           <input
             type="text"
             value={currentMessage}
-            placeholder="Hey..."
+            placeholder="Type your Query here.........."
             onChange={(event) => {
               setCurrentMessage(event.target.value);
             }}
@@ -75,7 +83,14 @@ const ChatBox = ({ socket, userName, room }) => {
               event.key === "Enter" && sendMessage();
             }}
           />
-          <button onClick={sendMessage}>&#9658;</button>
+          <button
+            onClick={sendMessage}
+            className="bg-lime-500 text-white hover:bg-white hover:text-black"
+          >
+            <span className="flex items-center gap-2 text-sm">
+              Send <FiSend />
+            </span>
+          </button>
         </div>
       </div>
     </>

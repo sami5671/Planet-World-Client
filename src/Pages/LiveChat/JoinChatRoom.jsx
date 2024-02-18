@@ -27,7 +27,9 @@ const JoinChatRoom = () => {
             <span className="flex justify-center">
               <GiFruitTree className="text-6xl  text-lime-400" />
             </span>
-            <h3 className="text-lime-500 font-bold">Join A Chat</h3>
+            <h3 className="text-lime-500 font-bold bg-gradient-to-bl from-yellow-200 to-green-700 text-transparent bg-clip-text ">
+              Join Live Chat
+            </h3>
             <input
               type="text"
               placeholder="Your Name..."

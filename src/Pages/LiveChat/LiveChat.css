@@ -19,35 +19,57 @@
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
-
-.chat-window {
-  width: 300px;
-  height: 420px;
+/* .joinChatContainer input {
+  width: 210px;
+  height: 40px;
+  margin: 7px;
+  border: 2px solid #43a047;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
 }
 
-.chat-window p {
-  margin: 0;
-}
-.chat-window .chat-header {
-  height: 45px;
-  border-radius: 6px;
-  background: #263238;
-  position: relative;
+.joinChatContainer button {
+  width: 225px;
+  height: 50px;
+  margin: 7px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+  background: #43a047;
+  color: #fff;
   cursor: pointer;
 }
-.chat-window .chat-header p {
+
+.joinChatContainer button:hover {
+  background: #2e7d32;
+} */
+
+/* .chat-window {
+  width: 500px;
+  height: 420px;
+} */
+
+/* .chat-window .chat-header {
+  height: 45px;
+  border-radius: 6px;
+  background: #58c246;
+  position: relative;
+  cursor: pointer;
+} */
+/* .chat-window .chat-header p {
   display: block;
   padding: 0 1em 0 2em;
   color: #fff;
   font-weight: 700;
   line-height: 45px;
-}
+} */
 
 .chat-window .chat-body {
   height: calc(450px - (45px + 70px));
-  border: 1px solid #263238;
+  border: 1px solid #71e162;
   background: #fff;
-
   position: relative;
 }
 .chat-window .chat-body .message-container {
@@ -70,7 +92,7 @@
   width: auto;
   height: auto;
   min-height: 40px;
-  max-width: 120px;
+  max-width: 320px;
   background-color: #43a047;
   border-radius: 5px;
   color: white;
@@ -78,8 +100,8 @@
   align-items: center;
   margin-right: 5px;
   margin-left: 5px;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -103,7 +125,7 @@
 
 #other .message-content {
   justify-content: flex-end;
-  background-color: cornflowerblue;
+  background-color: rgb(23, 76, 174);
 }
 
 #other .message-meta {
@@ -123,7 +145,7 @@
 
 .chat-window .chat-footer {
   height: 40px;
-  border: 1px solid #263238;
+  border: 1px solid #1759ff;
   border-top: none;
   display: flex;
 }
@@ -134,7 +156,7 @@
   border: 0;
   padding: 0 0.7em;
   font-size: 1em;
-  border-right: 1px dotted #607d8b;
+  border-right: 1px dotted #3c5561;
 
   outline: none;
   font-family: "Open Sans", sans-serif;
@@ -147,15 +169,10 @@
   cursor: pointer;
   flex: 15%;
   height: 100%;
-  background: transparent;
   outline: none;
   font-size: 25px;
-  color: lightgray;
 }
 
-.chat-window .chat-footer button:hover {
-  color: #43a047;
-}
 .hide {
   opacity: 0 !important;
 }
