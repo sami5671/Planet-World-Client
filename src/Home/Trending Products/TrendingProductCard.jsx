@@ -66,7 +66,7 @@ const TrendingProductCard = ({ plants }) => {
         theme="light"
         transition:Bounce
       />
-      <div className="w-[200px] font-Rancho rounded-lg shadow-2xl py-4 px-3 relative">
+      <div className="w-[160px] h-full lg:w-[200px] font-Rancho rounded-lg shadow-2xl py-4 px-3 relative">
         <Link to={`/product/${_id}`}>
           <div className="flex justify-center items-center">
             <img src={img1} className="w-[150px] h-[150px] rounded-xl" alt="" />
@@ -88,7 +88,7 @@ const TrendingProductCard = ({ plants }) => {
 
           <button
             onClick={() => handleAddToCart(plants)}
-            className="flex items-center gap-2 mt-2 text-white bg-lime-500 transition duration-300 ease-in-out hover:bg-lime-800 w-full px-8 rounded-tl-full rounded-br-full"
+            className="flex items-center gap-2 mt-2 text-white bg-lime-500 transition duration-300 ease-in-out hover:bg-lime-800 w-full px-3 lg:px-8 rounded-tl-full rounded-br-full"
           >
             Add to Cart <FaCartShopping />
           </button>

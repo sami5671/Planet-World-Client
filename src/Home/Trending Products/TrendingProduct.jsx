@@ -29,7 +29,7 @@ const TrendingProduct = () => {
           heading={"Our Trending Trees"}
           subHeading={"popularized products here"}
         ></SectionTitle>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-6 gap-4 lg:mt-12 px-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-6 gap-12 lg:gap-4 lg:mt-12 px-12">
           {trendingProducts.map((plants) => (
             <TrendingProductCard
               key={plants._id}

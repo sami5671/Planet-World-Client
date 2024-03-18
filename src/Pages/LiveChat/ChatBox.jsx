@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { GiPsychicWaves } from "react-icons/gi";
 import { FiSend } from "react-icons/fi";
-
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./LiveChat.css";
 

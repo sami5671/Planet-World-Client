@@ -179,7 +179,7 @@ const OrderDetails = () => {
         <div className="bg-white shadow-2xl lg:w-[500px] lg:h-[395px]">
           <Scrollbars style={{ width: "100%", height: "380px" }}>
             <div>
-              {orderCart.map((items) => (
+              {orderCart?.map((items) => (
                 <OrderDetailsCard
                   key={items._id}
                   items={items}

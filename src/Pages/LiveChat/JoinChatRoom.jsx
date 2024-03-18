@@ -5,7 +5,7 @@ import ChatBox from "./ChatBox";
 import { FaPersonCirclePlus } from "react-icons/fa6";
 import { GiFruitTree } from "react-icons/gi";
 
-const socket = io.connect("http://localhost:5000");
+// const socket = io.connect("http://localhost:5000");
 const JoinChatRoom = () => {
   // =================================================================
   const [userName, setUserName] = useState("");

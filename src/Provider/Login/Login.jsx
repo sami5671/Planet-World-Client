@@ -4,6 +4,7 @@ import { FaTree } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../../Components/GoogleLogin";
 import GithubLogin from "../../Components/GithubLogin";
+import Swal from "sweetalert2";
 
 const Login = () => {
   // ----------------------------------------------------------------
@@ -20,11 +21,20 @@ const Login = () => {
     const password = form.password.value;
     console.log(email, password);
 
-    signIn(email, password).then((result) => {
-      const user = result.user;
-      navigate("/", { state: { form: location } });
-      console.log(user);
-    });
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        navigate("/", { state: { form: location } });
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error("Error: ", error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+      });
   };
 
   // ====================Adding the background Style=================
