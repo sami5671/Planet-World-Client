@@ -5,6 +5,7 @@ import router from "./router/routes";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

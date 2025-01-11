@@ -1,11 +1,11 @@
-import React from "react";
+import { Loader } from "rizzui";
 
-const Loader = () => {
+const Loading = () => {
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <h2>Loading...</h2>
+    <div className="flex items-center justify-center">
+      <Loader variant="threeDot" className="text-4xl" />
     </div>
   );
 };
 
-export default Loader;
+export default Loading;
