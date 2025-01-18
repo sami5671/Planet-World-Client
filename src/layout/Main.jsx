@@ -12,7 +12,7 @@ const Main = () => {
     location.pathname.includes("login") || location.pathname.includes("signup");
 
   return (
-    <div>
+    <div className="">
       {/* Global Loader */}
       {navigation.state === "loading" && <Loader />}
 

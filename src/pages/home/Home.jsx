@@ -12,7 +12,7 @@ const Home = () => {
     if (localStorage.length > 0) {
       const user = localStorage.getItem("auth");
       const data = JSON.parse(user);
-      console.log(data);
+      // console.log(data);
       if (user) {
         dispatch(userLoggedIn(JSON.parse(user)));
       }

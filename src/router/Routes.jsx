@@ -4,6 +4,10 @@ import ErrorPage from "../components/shared/error/ErrorPage";
 import Home from "../pages/home/Home";
 import Login from "../pages/auth/login/Login";
 import SignUp from "../pages/auth/signUp/SignUp";
+import AllProduct from "../pages/allProduct/AllProduct";
+import DashboardLayout from "../layout/DashboardLayout";
+import AdminDashboard from "../pages/admin/AdminDashboard/AdminDashboard";
+import AddProduct from "../pages/admin/AddProduct/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,25 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "/allProduct",
+        element: <AllProduct />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "admin-dashboard",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
       },
     ],
   },
