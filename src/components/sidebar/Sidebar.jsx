@@ -9,6 +9,7 @@ import AdminMenu from "./AdminMenu";
 import ModeratorMenu from "./ModeratorMenu";
 import UserMenu from "./UserMenu";
 import MenuItem from "./MenuItem";
+import Logo from "../shared/logo/Logo";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
@@ -25,7 +26,9 @@ const Sidebar = () => {
       <div className="bg-primary-backgroundColor text-gray-800 flex justify-between md:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
-            {/* <Logo2 /> */}LOGO
+            {/* logo */}
+            <Logo />
+            {/* logo */}
           </div>
         </div>
 
@@ -45,7 +48,9 @@ const Sidebar = () => {
         <div>
           <div>
             <div className="w-full hidden md:flex px-4 py-2 rounded-lg justify-center items-center mx-auto">
-              {/* <Logo2 /> */} LOGO
+              {/* logo */}
+              <Logo color={"text-white"} />
+              {/* logo */}
             </div>
             <hr />
             <hr />

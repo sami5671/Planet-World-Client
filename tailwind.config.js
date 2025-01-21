@@ -20,6 +20,7 @@ export default {
           foreground: colors.white,
           backgroundColor: "#f4f3f1",
           dashboardPrimaryColor: "#62825D",
+          dashboardPrimaryTextColor: colors.lime[700],
         },
       },
     },

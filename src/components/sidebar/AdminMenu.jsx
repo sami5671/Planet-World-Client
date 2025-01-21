@@ -1,7 +1,9 @@
 import MenuItem from "./MenuItem";
-import { PiUsersThreeFill } from "react-icons/pi";
+import { FaUsersGear } from "react-icons/fa6";
 import { GiTreeGrowth } from "react-icons/gi";
 import { MdDashboard } from "react-icons/md";
+import { BsDatabaseFillGear } from "react-icons/bs";
+
 const AdminMenu = () => {
   return (
     <div>
@@ -12,11 +14,15 @@ const AdminMenu = () => {
       />
       <MenuItem icon={GiTreeGrowth} label="Add Product" address="add-product" />
       <MenuItem
-        icon={PiUsersThreeFill}
+        icon={BsDatabaseFillGear}
+        label="Manage Product"
+        address="manage-product"
+      />
+      <MenuItem
+        icon={FaUsersGear}
         label="Manage Users"
         address="manage-users"
       />
-
       <hr />
     </div>
   );
