@@ -1,5 +1,4 @@
 import { GiFruitTree } from "react-icons/gi";
-import Logo from "./../../../components/shared/logo/Logo";
 import { Input } from "rizzui";
 import { Select } from "rizzui";
 import { useMemo, useRef, useState } from "react";
@@ -9,14 +8,23 @@ import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { Radio, RadioGroup } from "rizzui";
 
 const options = [
-  { label: "Apple 🍎", value: "apple" },
-  { label: "Banana 🍌", value: "banana" },
-  { label: "Cherry 🍒", value: "cherry" },
+  { label: "Epiphytic Plant 🌱🌲", value: "Epiphytic" },
+  { label: "Desert Plant 🌵", value: "Desert" },
+  { label: "Natural Plant 🌳", value: "Natural" },
+  { label: "Artificial Plant 🎭", value: "Artificial" },
+  { label: "Polythene Plant 🛍️", value: "Polythene" },
+  { label: "Hydroponic Plant 💧🌱", value: "Hydroponic" },
+  { label: "Aquatic Plant 🌿💦", value: "Aquatic" },
+  { label: "Medicinal Plant 🌿", value: "Medicinal" },
+  { label: "Bonsai Plant 🎋", value: "Bonsai" },
+  { label: "Climbing Plant 🌿🧗", value: "Climbing" },
 ];
+
 const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [value, setValue] = useState(options[0]);
-  const [radioValue, setRadioValue] = useState("apple");
+  const [radioValueMaterial, setRadioValueMaterial] = useState("");
+  const [radioValueCategory, setRadioValueCategory] = useState("");
 
   const editor = useRef(null);
   const [content, setContent] = useState("");
@@ -75,12 +83,10 @@ const AddProduct = () => {
   console.log(content);
   return (
     <>
-      <section className="">
+      <section className="bg-white px-12 py-12 rounded-2xl">
         <div className="">
           {/* header */}
-          <div className="flex items-center justify-center">
-            <Logo color={"text-lime-700"} />
-          </div>
+
           {/* header */}
           <div className="flex items-center justify-between mt-4">
             <h1 className="text-primary-dashboardPrimaryTextColor font-bold text-xl flex items-center gap-2">
@@ -91,10 +97,12 @@ const AddProduct = () => {
             </button>
           </div>
 
+          {/* content for uploading tree start*/}
+
           {/* general and upload section */}
-          <div className="flex justify-between lg:gap-6 mt-6">
-            {/* general */}
-            <div className="w-1/2 h-[520px] bg-slate-200 px-12 py-12 shadow-xl rounded-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-8">
+            {/* general and upload section start*/}
+            <div className=" bg-slate-50 px-12 py-12 shadow-xl rounded-2xl">
               <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4 rounded-2xl">
                 General Information
               </h1>
@@ -123,8 +131,10 @@ const AddProduct = () => {
                 />
               </div>
             </div>
-            {/* photo upload */}
-            <div className="w-1/2 h-[520px] bg-slate-200 px-12 py-12 shadow-xl rounded-2xl">
+            {/* general and upload section end*/}
+
+            {/* photo upload start*/}
+            <div className="bg-slate-50 px-12 py-12 shadow-xl rounded-2xl">
               <h1 className="text-xl text-primary-dashboardPrimaryTextColor font-bold mb-2 ">
                 Upload Img
               </h1>
@@ -154,62 +164,121 @@ const AddProduct = () => {
                 </div>
               </div>
             </div>
-          </div>
-          {/* general and upload section */}
+            {/* photo upload end*/}
 
-          {/* pricing and stock */}
+            {/* pricing and stock start*/}
+            <div className="bg-slate-50 px-12 py-12 shadow-xl rounded-2xl">
+              <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4 rounded-2xl">
+                Pricing and Stock
+              </h1>
+              <div>
+                <Input
+                  type="number"
+                  label="Previous Price"
+                  prefix={<CurrencyDollarIcon className="w-5" />}
+                  suffix=".00"
+                  placeholder="Enter your price"
+                />
+                <Input
+                  type="number"
+                  label="New Price"
+                  prefix={<CurrencyDollarIcon className="w-5" />}
+                  suffix=".00"
+                  placeholder="Enter your price"
+                />
+              </div>
+              <div>
+                <Input
+                  type="number"
+                  label="Stocks"
+                  placeholder="Enter your stock"
+                />
+              </div>
+            </div>
+            {/* pricing and stock end*/}
 
-          <div className="">
-            <div>
-              <Input
-                type="number"
-                label="Previous Price"
-                prefix={<CurrencyDollarIcon className="w-5" />}
-                suffix=".00"
-                placeholder="Enter your price"
-              />
-              <Input
-                type="number"
-                label="New Price"
-                prefix={<CurrencyDollarIcon className="w-5" />}
-                suffix=".00"
-                placeholder="Enter your price"
-              />
+            {/* plant type and category start*/}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-12 py-12 bg-slate-50 shadow-xl rounded-2xl">
+              <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4 rounded-2xl">
+                Plant type and Category
+              </h1>
+              <div>
+                <Select
+                  label="PlantType"
+                  options={options}
+                  value={value}
+                  onChange={setValue}
+                  clearable={value !== null}
+                  onClear={() => setValue(null)}
+                  dropdownClassName="bg-white"
+                  selectClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring-0 rounded-md p-2"
+                />
+              </div>
+              <div>
+                <label className="font-bold text-sm" htmlFor="Material">
+                  Material
+                </label>
+                <RadioGroup
+                  label="Material"
+                  value={radioValueMaterial}
+                  setValue={setRadioValueMaterial}
+                  className="flex gap-4 mt-3"
+                >
+                  <Radio
+                    inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
+                    label="Organic"
+                    value="Organic"
+                  />
+                  <Radio
+                    inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
+                    label="Non-Organic"
+                    value="Non-Organic"
+                  />
+                </RadioGroup>
+              </div>
+              <div>
+                <Input
+                  label="Plant Name"
+                  placeholder="Enter your name"
+                  variant="outline"
+                  inputClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
+                  // inputClassName={`border-2 ${
+                  //   errors.name && touched.name
+                  //     ? "border-red-500"
+                  //     : "border-lime-500"
+                  // } bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2`}
+                />
+              </div>
+              <div>
+                <div>
+                  <label className="font-bold text-sm" htmlFor="Material">
+                    Category
+                  </label>
+                  <RadioGroup
+                    label="Category"
+                    value={radioValueCategory}
+                    setValue={setRadioValueCategory}
+                    className="flex gap-4 mt-3"
+                  >
+                    <Radio
+                      inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
+                      label="Indoor"
+                      value="Indoor"
+                    />
+                    <Radio
+                      inputClassName="text-lime-600   ring-0 focus:ring-0 focus:outline-none "
+                      label="Outdoor"
+                      value="Outdoor"
+                    />
+                  </RadioGroup>
+                </div>
+              </div>
             </div>
-            <div>
-              <Input
-                type="number"
-                label="Stocks"
-                placeholder="Enter your stock"
-              />
-            </div>
+            {/* plant type and category end*/}
           </div>
-          {/* pricing and stock */}
-
-          {/* plant type and category */}
-          <div className="">
-            <div>
-              <Select
-                label="Select"
-                options={options}
-                value={value}
-                onChange={setValue}
-                clearable={value !== null}
-                onClear={() => setValue(null)}
-              />
-              <RadioGroup
-                value={radioValue}
-                setValue={setRadioValue}
-                className="flex gap-4"
-              >
-                <Radio label="Apple" value="apple" />
-                <Radio label="Pear" value="pear" />
-              </RadioGroup>
-            </div>
-            <div></div>
-          </div>
-          {/* pricing and stock */}
+          {/* content for uploading tree end*/}
         </div>
+        {/*  */}
       </section>
     </>
   );

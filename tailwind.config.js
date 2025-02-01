@@ -18,7 +18,7 @@ export default {
           DEFAULT: colors.blue[500],
           dark: colors.blue[700],
           foreground: colors.white,
-          backgroundColor: "#f4f3f1",
+          backgroundColor: "#ebf7f6",
           dashboardPrimaryColor: "#62825D",
           dashboardPrimaryTextColor: colors.lime[700],
         },
