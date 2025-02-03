@@ -1,13 +1,13 @@
-import { GiFruitTree } from "react-icons/gi";
-import { Input } from "rizzui";
-import { Select } from "rizzui";
-import { useMemo, useRef, useState } from "react";
+import { Input, Radio, RadioGroup, Select } from "rizzui";
 import { FaCirclePlus } from "react-icons/fa6";
 import JoditEditor from "jodit-react";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { Radio, RadioGroup } from "rizzui";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { useRef, useState } from "react";
+import { GiFruitTree } from "react-icons/gi";
 
-const options = [
+const PlantTypeOptions = [
   { label: "Epiphytic Plant 🌱🌲", value: "Epiphytic" },
   { label: "Desert Plant 🌵", value: "Desert" },
   { label: "Natural Plant 🌳", value: "Natural" },
@@ -20,267 +20,262 @@ const options = [
   { label: "Climbing Plant 🌿🧗", value: "Climbing" },
 ];
 
+const validationSchema = Yup.object({
+  plantName: Yup.string().required("Plant Name is required"),
+  description: Yup.string().required("Description is required"),
+  previousPrice: Yup.number().required("Previous price is required"),
+  newPrice: Yup.number().required("New price is required"),
+  stock: Yup.number().required("Stock is required"),
+  plantType: Yup.string().required("Plant Type is required"),
+  material: Yup.string().required("Material is required"),
+  color: Yup.string().required("Plant Color is required"),
+});
+
 const AddProduct = () => {
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [value, setValue] = useState(options[0]);
-  const [radioValueMaterial, setRadioValueMaterial] = useState("");
-  const [radioValueCategory, setRadioValueCategory] = useState("");
+  const initialValues = {
+    plantName: "",
+    description: "",
+    previousPrice: "",
+    newPrice: "",
+    stock: "",
+    plantType: "",
+    material: "organic",
+    color: "",
+    category: "indoor",
+  };
 
   const editor = useRef(null);
-  const [content, setContent] = useState("");
-  const config = useMemo(
-    () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      autofocus: true,
-      height: 300,
-      placeholder: "Start typing here...",
-    }),
-    []
-  );
+  const [selectedImages, setSelectedImages] = useState([]);
 
-  const handleImageChange = (event) => {
+  const handleImageChange = (event, setFieldValue) => {
     const files = event.target.files;
     const fileArray = Array.from(files).map((file) =>
       URL.createObjectURL(file)
     );
     setSelectedImages((prevImages) => prevImages.concat(fileArray));
+    setFieldValue("images", files);
   };
 
-  const renderPhotos = (source) => {
-    if (source.length === 0) return null;
-
-    return (
-      <>
-        {/* Large image */}
-        <div className="mb-4 flex justify-center items-center mt-4">
-          <div className="w-72 h-48 px-4 py-4 bg-slate-300 shadow-xl shadow-slate-400  rounded-xl overflow-hidden">
-            <img
-              src={source[0]}
-              alt="Main Selected"
-              className="w-full h-full object-cover rounded-xl"
-            />
-          </div>
-        </div>
-        {/* Smaller images */}
-        <div className="grid grid-cols-6 gap-2">
-          {source.map((photo, index) => (
-            <div
-              key={index}
-              className="w-[85px] h-[85px] px-2 py-2 bg-slate-300 shadow-xl shadow-slate-400 rounded-xl overflow-hidden"
-            >
-              <img
-                src={photo}
-                alt={`Selected ${index + 1}`}
-                className="w-full h-full object-cover rounded-xl"
-              />
-            </div>
-          ))}
-        </div>
-      </>
-    );
+  const handleSubmit = (values) => {
+    console.log("Submitted Data:", values);
   };
 
-  console.log(content);
   return (
-    <>
-      <section className="bg-white px-12 py-12 rounded-2xl">
-        <div className="">
-          {/* header */}
-
-          {/* header */}
-          <div className="flex items-center justify-between mt-4">
-            <h1 className="text-primary-dashboardPrimaryTextColor font-bold text-xl flex items-center gap-2">
-              Add New Product <GiFruitTree />
-            </h1>
-            <button className="bg-primary-dashboardPrimaryTextColor text-white px-4 py-2 rounded-full font-bold hover:bg-lime-500">
-              Add Product
-            </button>
-          </div>
-
-          {/* content for uploading tree start*/}
-
-          {/* general and upload section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-8">
-            {/* general and upload section start*/}
-            <div className=" bg-slate-50 px-12 py-12 shadow-xl rounded-2xl">
-              <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4 rounded-2xl">
-                General Information
+    <section className="bg-white px-4 py-4 lg:px-12 lg:py-12 rounded-2xl">
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ values, setFieldValue }) => (
+          <Form>
+            <div className="flex items-center lg:justify-between mt-4">
+              <h1 className="text-primary-dashboardPrimaryTextColor font-bold text-xl flex items-center gap-2">
+                Add New Product <GiFruitTree />
               </h1>
-              <Input
-                label="Plant Name"
-                placeholder="Enter your name"
-                variant="outline"
-                inputClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
-                // inputClassName={`border-2 ${
-                //   errors.name && touched.name
-                //     ? "border-red-500"
-                //     : "border-lime-500"
-                // } bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2`}
-              />
-
-              <div className="mt-6">
-                <label className="font-bold" htmlFor="product description">
-                  Product description
-                </label>
-                <JoditEditor
-                  ref={editor}
-                  value={content}
-                  tabIndex={1}
-                  onChange={(newContent) => setContent(newContent)}
-                  config={config}
-                />
-              </div>
+              <button
+                type="submit"
+                className="bg-primary-dashboardPrimaryTextColor text-[10px] lg:text-[14px] text-white lg:px-4 lg:py-2 rounded-full font-bold hover:bg-lime-500"
+              >
+                Add Product
+              </button>
             </div>
-            {/* general and upload section end*/}
 
-            {/* photo upload start*/}
-            <div className="bg-slate-50 px-12 py-12 shadow-xl rounded-2xl">
-              <h1 className="text-xl text-primary-dashboardPrimaryTextColor font-bold mb-2 ">
-                Upload Img
-              </h1>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-6 lg:my-8">
+              {/* Plant Name */}
+              <div className="bg-slate-50 px-3 py-3 lg:px-12 lg:py-12 shadow-xl rounded-2xl">
+                <Field
+                  as={Input}
+                  label="Plant Name"
+                  name="plantName"
+                  variant="outline"
+                  inputClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
+                />
+                <ErrorMessage
+                  name="plantName"
+                  component="div"
+                  className="text-red-500"
+                />
 
-              <div className="gap-2">
-                {renderPhotos(selectedImages)}
-                {/* <div className="w-24 h-24 flex items-center justify-center border-2 border-lime-900 border-dotted rounded"></div> */}
-              </div>
-              <div className=" p-4 w-full m-auto rounded-lg">
-                <div className="px-5 py-3 relative rounded-lg">
-                  <div className="flex flex-col w-max mx-auto text-center">
-                    <label>
-                      <input
-                        type="file"
-                        className="text-sm cursor-pointer w-36 hidden"
-                        multiple={true}
-                        onChange={handleImageChange}
-                      />
-                      <div
-                        className="w-40 h-20 flex items-center justify-center border-dashed shadow-xl shadow-slate-400 border-2 border-lime-700 rounded cursor-pointer font-bold text-3xl text-lime-700"
-                        // onClick={handlePlusClick}
-                      >
-                        <FaCirclePlus />
-                      </div>
-                    </label>
-                  </div>
+                {/* Product Description */}
+                <div className="mt-6">
+                  <label className="font-bold">Product Description</label>
+                  <JoditEditor
+                    ref={editor}
+                    value={values.description}
+                    tabIndex={1}
+                    onChange={(newContent) =>
+                      setFieldValue("description", newContent)
+                    }
+                  />
+                  <ErrorMessage
+                    name="description"
+                    component="div"
+                    className="text-red-500"
+                  />
                 </div>
               </div>
-            </div>
-            {/* photo upload end*/}
 
-            {/* pricing and stock start*/}
-            <div className="bg-slate-50 px-12 py-12 shadow-xl rounded-2xl">
-              <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4 rounded-2xl">
-                Pricing and Stock
-              </h1>
-              <div>
-                <Input
+              {/* Image Upload */}
+              <div className="bg-slate-50 px-12 py-12 shadow-xl rounded-2xl">
+                <h1 className="text-xl text-primary-dashboardPrimaryTextColor font-bold mb-2">
+                  Upload Image
+                </h1>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                  {selectedImages.map((photo, index) => (
+                    <img
+                      key={index}
+                      src={photo}
+                      alt={`Selected ${index}`}
+                      className="w-24 h-24 rounded-xl object-cover"
+                    />
+                  ))}
+                </div>
+                <label>
+                  <input
+                    type="file"
+                    className="hidden"
+                    multiple
+                    onChange={(e) => handleImageChange(e, setFieldValue)}
+                  />
+                  <div className="w-40 h-20 mt-12 flex items-center justify-center border-dashed shadow-xl border-2 border-lime-700 rounded cursor-pointer font-bold text-3xl text-lime-700">
+                    <FaCirclePlus />
+                  </div>
+                </label>
+              </div>
+
+              {/* Pricing & Stock */}
+              <div className="bg-slate-50 px-3 py-3 lg:px-12 lg:py-12 shadow-xl rounded-2xl">
+                <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4">
+                  Pricing & Stocks
+                </h1>
+                <Field
+                  as={Input}
                   type="number"
                   label="Previous Price"
                   prefix={<CurrencyDollarIcon className="w-5" />}
-                  suffix=".00"
-                  placeholder="Enter your price"
+                  name="previousPrice"
+                  inputClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
                 />
-                <Input
+                <ErrorMessage
+                  name="previousPrice"
+                  component="div"
+                  className="text-red-500"
+                />
+
+                <Field
+                  as={Input}
                   type="number"
                   label="New Price"
                   prefix={<CurrencyDollarIcon className="w-5" />}
-                  suffix=".00"
-                  placeholder="Enter your price"
-                />
-              </div>
-              <div>
-                <Input
-                  type="number"
-                  label="Stocks"
-                  placeholder="Enter your stock"
-                />
-              </div>
-            </div>
-            {/* pricing and stock end*/}
-
-            {/* plant type and category start*/}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-12 py-12 bg-slate-50 shadow-xl rounded-2xl">
-              <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4 rounded-2xl">
-                Plant type and Category
-              </h1>
-              <div>
-                <Select
-                  label="PlantType"
-                  options={options}
-                  value={value}
-                  onChange={setValue}
-                  clearable={value !== null}
-                  onClear={() => setValue(null)}
-                  dropdownClassName="bg-white"
-                  selectClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring-0 rounded-md p-2"
-                />
-              </div>
-              <div>
-                <label className="font-bold text-sm" htmlFor="Material">
-                  Material
-                </label>
-                <RadioGroup
-                  label="Material"
-                  value={radioValueMaterial}
-                  setValue={setRadioValueMaterial}
-                  className="flex gap-4 mt-3"
-                >
-                  <Radio
-                    inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
-                    label="Organic"
-                    value="Organic"
-                  />
-                  <Radio
-                    inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
-                    label="Non-Organic"
-                    value="Non-Organic"
-                  />
-                </RadioGroup>
-              </div>
-              <div>
-                <Input
-                  label="Plant Name"
-                  placeholder="Enter your name"
-                  variant="outline"
+                  name="newPrice"
                   inputClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
-                  // inputClassName={`border-2 ${
-                  //   errors.name && touched.name
-                  //     ? "border-red-500"
-                  //     : "border-lime-500"
-                  // } bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2`}
+                />
+                <ErrorMessage
+                  name="newPrice"
+                  component="div"
+                  className="text-red-500"
+                />
+
+                <Field
+                  as={Input}
+                  type="number"
+                  label="Stock"
+                  name="stock"
+                  inputClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
+                />
+                <ErrorMessage
+                  name="stock"
+                  component="div"
+                  className="text-red-500"
                 />
               </div>
-              <div>
-                <div>
-                  <label className="font-bold text-sm" htmlFor="Material">
-                    Category
-                  </label>
-                  <RadioGroup
-                    label="Category"
-                    value={radioValueCategory}
-                    setValue={setRadioValueCategory}
-                    className="flex gap-4 mt-3"
-                  >
-                    <Radio
-                      inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
-                      label="Indoor"
-                      value="Indoor"
+
+              {/* Plant Type & Category */}
+              <div className="bg-slate-50 px-3 py-3 lg:px-12 lg:py-12 shadow-xl rounded-2xl">
+                <h1 className="text-primary-dashboardPrimaryColor font-bold text-xl mb-4">
+                  Plant Type & Category
+                </h1>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div>
+                    <Select
+                      label="Select Plant Type"
+                      options={PlantTypeOptions}
+                      value={PlantTypeOptions.find(
+                        (option) => option.value === values.plantType
+                      )}
+                      onChange={(selected) =>
+                        setFieldValue("plantType", selected.value)
+                      }
+                      dropdownClassName="bg-white"
+                      selectClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
                     />
-                    <Radio
-                      inputClassName="text-lime-600   ring-0 focus:ring-0 focus:outline-none "
-                      label="Outdoor"
-                      value="Outdoor"
+                  </div>
+                  <div>
+                    <label htmlFor="material" className="font-semibold mt-4">
+                      Material
+                    </label>
+                    <RadioGroup
+                      value={values.material}
+                      setValue={(val) => setFieldValue("material", val)}
+                      className="flex gap-4 mt-2"
+                    >
+                      <Radio
+                        label="Organic"
+                        value="organic"
+                        inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
+                      />
+                      <Radio
+                        label="Non-Organic"
+                        value="non-organic"
+                        inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
+                      />
+                    </RadioGroup>
+                  </div>
+                  <div>
+                    <Field
+                      as={Input}
+                      label="Plant Color"
+                      name="color"
+                      variant="outline"
+                      inputClassName="border-lime-500 bg-white opacity-80 focus:border-lime-600 focus:ring focus:ring-lime-600 rounded-md p-2"
                     />
-                  </RadioGroup>
+                    <ErrorMessage
+                      name="color"
+                      component="div"
+                      className="text-red-500"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="category" className="font-semibold mt-4">
+                      Category
+                    </label>
+                    <RadioGroup
+                      value={values.category}
+                      setValue={(val) => setFieldValue("category", val)}
+                      className="flex gap-4 mt-2"
+                    >
+                      <Radio
+                        label="indoor"
+                        value="indoor"
+                        inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
+                      />
+                      <Radio
+                        label="outdoor"
+                        value="outdoor"
+                        inputClassName="text-lime-600  ring-0 focus:ring-0 focus:outline-none "
+                      />
+                    </RadioGroup>
+                  </div>
                 </div>
               </div>
+
+              {/* Plant Type & Category */}
             </div>
-            {/* plant type and category end*/}
-          </div>
-          {/* content for uploading tree end*/}
-        </div>
-        {/*  */}
-      </section>
-    </>
+          </Form>
+        )}
+      </Formik>
+    </section>
   );
 };
 
