@@ -6,6 +6,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useRef, useState } from "react";
 import { GiFruitTree } from "react-icons/gi";
+import { uploadCloudinary } from "../../../api/utils";
+import { useAddProductMutation } from "../../../features/adminControl/adminControlApi";
+import { ToastContainer, toast } from "react-toastify";
+import { ImSpinner2 } from "react-icons/im";
 
 const PlantTypeOptions = [
   { label: "Epiphytic Plant 🌱🌲", value: "Epiphytic" },
@@ -44,6 +48,8 @@ const AddProduct = () => {
     category: "indoor",
   };
 
+  const [addProduct, { isLoading, error: responseError }] =
+    useAddProductMutation();
   const editor = useRef(null);
   const [selectedImages, setSelectedImages] = useState([]);
 
@@ -56,18 +62,59 @@ const AddProduct = () => {
     setFieldValue("images", files);
   };
 
-  const handleSubmit = (values) => {
-    console.log("Submitted Data:", values);
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    console.log(values);
+    const images = values?.images;
+    try {
+      // upload images to Cloud Storage and get URL
+      let arr = [];
+      for (let i = 0; i < images.length; i++) {
+        const data = await uploadCloudinary(images[i]);
+        arr.push(data);
+      }
+      console.log(arr);
+      // add product using adminController API
+      await addProduct({
+        name: values.plantName,
+        previousPrice: values.previousPrice,
+        newPrice: values.newPrice,
+        stock: values.stock,
+        color: values.color,
+        plantType: values.plantType,
+        material: values.material,
+        category: values.category,
+        description: values.description,
+        images: arr,
+      });
+      toast(`Product added successfully`);
+      resetForm();
+      setSelectedImages([]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <section className="bg-white px-4 py-4 lg:px-12 lg:py-12 rounded-2xl">
+      <ToastContainer
+        position="bottom-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, setFieldValue, isSubmitting }) => (
           <Form>
             <div className="flex items-center lg:justify-between mt-4">
               <h1 className="text-primary-dashboardPrimaryTextColor font-bold text-xl flex items-center gap-2">
@@ -77,7 +124,11 @@ const AddProduct = () => {
                 type="submit"
                 className="bg-primary-dashboardPrimaryTextColor text-[10px] lg:text-[14px] text-white lg:px-4 lg:py-2 rounded-full font-bold hover:bg-lime-500"
               >
-                Add Product
+                {isLoading || isSubmitting ? (
+                  <ImSpinner2 className="animate-spin" />
+                ) : (
+                  "Add Product"
+                )}
               </button>
             </div>
 
@@ -103,10 +154,16 @@ const AddProduct = () => {
                   <JoditEditor
                     ref={editor}
                     value={values.description}
-                    tabIndex={1}
+                    tabIndex={0}
                     onChange={(newContent) =>
                       setFieldValue("description", newContent)
                     }
+                    config={{
+                      height: 300,
+                      minHeight: 200,
+                      maxHeight: 400,
+                      style: { overflowY: "auto" },
+                    }}
                   />
                   <ErrorMessage
                     name="description"
