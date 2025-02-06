@@ -8,6 +8,7 @@ import AllProduct from "../pages/allProduct/AllProduct";
 import DashboardLayout from "../layout/DashboardLayout";
 import AdminDashboard from "../pages/admin/AdminDashboard/AdminDashboard";
 import AddProduct from "../pages/admin/AddProduct/AddProduct";
+import ManageProduct from "../pages/admin/ManageProduct/ManageProduct";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "add-product",
         element: <AddProduct />,
+      },
+      {
+        path: "manage-product",
+        element: <ManageProduct />,
       },
     ],
   },
